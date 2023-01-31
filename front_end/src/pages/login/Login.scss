@@ -1,0 +1,364 @@
+.login{
+    height:100vh ;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .loginGlass {
+        width: 80%;
+        height:95%;
+        background: var(--glass);
+        border-radius: 15px;
+
+        .ant-row{
+            height: 100%;
+
+            .login_form {
+                background: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 0 15px 15px 0;
+                flex-direction: column;
+                .login_form__logo{
+                    height: 60px;
+                    width: 60px;
+                    margin-bottom: 15px;
+                    svg{
+                        width:100%;
+                        height:100%;
+                    }
+                }
+                h2{
+                    text-align: center;
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    font-family: "Montserrat";
+                    // background: linear-gradient(90deg, #ffc248 0%, #ffa061 50%, #fc1dcc 100%);
+                    // -webkit-background-clip: text;
+                    // -webkit-text-fill-color: transparent;
+                    color: var(--mainColor);
+                    margin-bottom: 50px;
+                    p{
+                        font-size:24px;
+                        
+                    }
+                }
+
+                .login-form__container{
+                    width: 60%;
+
+                    .username_input, .password_input{
+                        height:40px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Image */
+.login_img_1{
+    img{
+        transform: rotate(6deg);
+        -webkit-animation: mover 1.5s infinite  alternate;
+        -ms-animation: mover 1.5s infinite  alternate;
+        animation: mover 1.5s infinite  alternate;
+    }
+    @-webkit-keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-20px); }
+    }
+    @-ms-keyframes mover {
+        0% { transform: translateY(0);}
+        100% { transform: translateY(-20px); }
+    }
+    @keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-20px); }
+    }
+}
+
+
+.image{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: 100%;
+
+    .login_img_1{
+        img{
+            z-index: 5;
+            width:15%;
+            position: absolute;
+            top:58%;
+            left: 32%;
+        }
+    }
+    .login_img_2{
+        img{
+            z-index: 5;
+            width:20%;
+            position: absolute;
+            top: 36%;
+            left: 32%;
+            rotate: -5deg;
+            -webkit-animation: mover2 1.5s infinite  alternate;
+            -ms-animation: mover2 1.5s infinite  alternate;
+            animation: mover2 1.5s infinite  alternate;
+            animation-delay: 0.2s;
+        }
+        @-webkit-keyframes mover2 {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+        @-ms-keyframes mover2 {
+            0% { transform: translateY(0);}
+            100% { transform: translateY(-20px); }
+        }
+        @keyframes mover2 {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+    }
+    .login_img_3{
+        img{
+            z-index: 5;
+            width:17%;
+            position: absolute;
+            right: 32%;
+            top: 35%;
+            -webkit-animation: mover 1.5s infinite  alternate;
+            -ms-animation: mover 1.5s infinite  alternate;
+            animation: mover 1.5s infinite  alternate;
+            animation-delay: 0.5s;
+        }
+    }
+    .login_img_4{
+        img{
+            z-index: 5;
+            rotate : 6deg;
+            width:6%;
+            position: absolute;
+            bottom: 40%;
+            right: 40%;
+            -webkit-animation: mover4 1.5s infinite  alternate;
+            -ms-animation: mover4 1.5s infinite  alternate;
+            animation: mover4 1.5s infinite  alternate;
+            animation-delay: 0.5s;
+        }
+        @-webkit-keyframes mover4 {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+        @-ms-keyframes mover4 {
+            0% { transform: translateY(0);}
+            100% { transform: translateY(-20px); }
+        }
+        @keyframes mover4 {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+    }
+
+    /* text */
+
+    .message {
+        position: absolute;
+        bottom: 6%;
+        padding-inline: 60px;
+
+        h2{
+            text-align: center;
+            font-size: 22px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ffc248 0%, #ffa061 50%, #fc1dcc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: "Montserrat";
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        p{
+            text-align: center;
+            color: rgb(255, 71, 157);
+            font-size: 18px;
+            padding-inline: 40px;
+            font-family: 'Dancing Script', cursive;
+            font-weight: 500;
+        }
+    }
+}
+
+/* shape background */
+.shape {
+
+	position: absolute;
+    background-color: #ffe284;
+    background-image: linear-gradient(90deg, #ffe284 0%, #ffc39b 50%, #ffaeee 100%);  
+    animation: morph 10s alternate infinite;
+    border-radius: 18% 82% 73% 27% / 17% 17% 83% 83% ;
+    height: 50%;
+    transition: all 1s linear infinite;
+    width: 50%;
+    z-index: 2;
+    top: 20%;
+}
+
+
+@keyframes morph {
+    0% {
+			border-radius:  58% 42% 76% 24% / 33% 46% 54% 67% ;
+            transform: rotate(0deg);
+	} 
+
+    25% {
+        border-radius:  60% 40% 22% 78% / 49% 52% 48% 51%  ;
+        transform: rotate(72deg);
+    }
+
+	50% {
+			border-radius:  30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: rotate(144deg);
+
+	}
+
+    75% {
+        border-radius:  36% 64% 53% 47% / 23% 37% 63% 77%  ;
+        transform: rotate(216deg);
+    }
+
+	100% {
+		border-radius:  32% 68% 61% 39% / 68% 37% 63% 32% ;
+        transform: rotate(288deg);
+	} 
+}
+
+/* shape 2 */
+
+.shape_con{
+    position: absolute;
+}
+
+.shape_con_1{
+    width: 15px;
+    height: 20px;
+    background: #00F5FF;
+    border-radius: 16% 84% 12% 88% / 16% 84% 16% 84% ;
+    animation: waterfall_1 1s ;
+    animation-fill-mode: forwards;
+    transition: all 1s ease-in-out;
+    animation-delay: 3s;
+    @keyframes waterfall_1{
+        0%{ 
+            top: 50%;
+            left: 50%;
+            transform : rotate(0deg);
+        }
+
+        100%{
+            top: 20%;
+            left: 13%;
+            transform : rotate(180deg);
+        }
+    }
+}
+.shape_con_2{
+    width: 15px;
+    height: 20px;
+    background: #FF6D28;
+    border-radius: 90% 10% 55% 45% / 75% 15% 85% 25%  ;
+    animation: waterfall_2 1s ;
+    animation-fill-mode: forwards;
+    transition: all 1s ease-in-out;
+    animation-delay: 3s;
+
+    @keyframes waterfall_2{
+        0%{ 
+            top: 50%;
+            left: 50%;
+            transform : rotate(0deg);
+        }
+
+        100%{
+            top: 20%;
+            right: 24%;
+            transform : rotate(200deg);
+        }
+    }
+}
+.shape_con_3{
+    width: 20px;
+    height: 17px;
+    background: #EA047E;
+    border-radius: 89% 11% 48% 52% / 45% 11% 89% 55%  ;
+    animation: waterfall_3 1s ;
+    animation-fill-mode: forwards;
+    transition: all 1s ease-in-out;
+    animation-delay: 3s;
+
+    @keyframes waterfall_3{
+        0%{ 
+            top: 50%;
+            left: 50%;
+            transform : rotate(0deg);
+        }
+
+        100%{
+            bottom: 28%;
+            left: 28%;
+            transform : rotate(221deg);
+        }
+    }
+}
+.shape_con_4{
+    width: 18px;
+    height: 20px;
+    background: rgb(60, 243, 97);
+    border-radius: 47% 53% 34% 66% / 45% 34% 66% 55%  ;
+    animation: waterfall_4 1s ;
+    animation-fill-mode: forwards;
+    transition: all 1s ease-in-out;
+    animation-delay: 3s;
+
+    @keyframes waterfall_4{
+        0%{ 
+            top: 50%;
+            left: 50%;
+            transform : rotate(0deg);
+        }
+
+        100%{
+            top: 65%;
+            left: 85%;
+            transform : rotate(180deg);
+        }
+    }
+}
+.shape_con_5{
+    width: 18px;
+    height: 18px;
+    background: #3F0071;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%  ;
+    animation: waterfall_5 1s ;
+    animation-delay: 3s;
+    animation-fill-mode: forwards;
+    transition: all 1s ease-in-out;
+
+    @keyframes waterfall_5{
+        0%{ 
+            top: 50%;
+            left: 50%;
+            transform : rotate(0deg);
+        }
+
+        100%{
+            top: 45%;
+            left: 10%;
+            transform : rotate(180deg);
+        }
+    }
+}
+
+
+
