@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Welcome from './components/Welcome'
+// import Welcome from './components/Welcome'
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import List from './pages/list/List';
@@ -13,7 +13,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Link,
 } from "react-router-dom";
 import Register from './pages/register/Register';
 

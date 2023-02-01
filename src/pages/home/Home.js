@@ -3,7 +3,7 @@ import './home.scss';
 import Sidebar from '../../components/sidebar/Sidebar';
 import Navbar from '../../components/navbar/Navbar';
 import { Breadcrumb, Layout } from 'antd';
-const { Header, Content, Footer} = Layout;
+const { Content, Footer} = Layout;
 class Home extends Component {
     render() {
         return (

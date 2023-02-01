@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { LockOutlined,  MailOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Col, Row } from 'antd';
 import './Login.scss';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import login_img_1  from './image/login_1.svg';
 import login_img_2  from './image/login_2.svg';
 import login_img_3  from './image/Login_3.svg';
