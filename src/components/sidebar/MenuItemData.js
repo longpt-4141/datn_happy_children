@@ -4,42 +4,79 @@ import {ReactComponent as ChartFill} from './image/Chart_fill.svg';
 // import {ReactComponent as News} from './image/News.svg';
 import {ReactComponent as User} from './image/User.svg';
 import {ReactComponent as Request} from './image/Request.svg';
-function getItem(label, key, icon, children, type) {
-    return {
-        key,
-        icon,
-        children,
-        label,
-        type,
-    };
-}
-export const item = [
-    getItem('Trang chủ', '1',<Dashboard/> ),
-    getItem('Yêu cầu', '2', <Request/>),
-    getItem('Người dùng', 'sub1', <User/>, [
-        getItem('Quản trị viên', '5'),
-        getItem('Quản lý trung tâm', '6'),
-    ]),
-    getItem('Tin tức', '7', <FontAwesomeIcon icon="fas fa-newspaper" />),
-    getItem('Thống kê', '8', <ChartFill/>),
 
-];
+import {Link} from 'react-router-dom'
+
+export const item = [
+    {
+        label: (
+            <Link to="dashboard" > Trang chủ </Link>
+        ),
+        key:1,
+        icon: <Dashboard style={{width: '20px'}}/>
+    },
+    {
+        label: (
+            <Link to="requests" > Yêu cầu </Link>
+        ),
+        key:2,
+        icon: <Request/>
+    },
+    {
+        label: 'Người dùng',
+        key:'submenu',
+        icon: <User/>,
+        children: [
+            {
+                label: (
+                    <Link to="admins" > Quản trị viên </Link>
+                ),
+                key:'sub-item-1',
+            },
+            {
+                label: (
+                    <Link to="centers" > Quản lý trung tâm </Link>
+                ),
+                key:'sub-item-2',
+            }
+        ]
+    },
+    {
+        label: (
+            <Link to="news" > Tin tức </Link>
+        ),
+        key:3,
+        icon: <FontAwesomeIcon icon="fas fa-newspaper" style={{width: '20px'}} />
+    },
+    {
+        label: (
+            <Link to="statistic" > Thống kê </Link>
+        ),
+        key:4,
+        icon: <ChartFill />
+    },
+]
+
 export const MenuItemData = [
     {
-        icon :   <Dashboard/>,
-        heading : "Trang chủ"
+        heading : "Trang chủ",
+        route: '/dashboard'
     },
     {
-        icon : <Request/>,
-        heading : "Yêu cầu"
+        heading : "Yêu cầu",
+        route : '/requests'
     },
     {
-        icon : <User/>,
-        heading : "Người dùng"
+        heading : "Quản trị viên",
+        route: "/admins"
     },
     {
-        icon : <FontAwesomeIcon icon="fas fa-newspaper" />,
-        heading : "Tin tức"
+        heading: "Quản lý trung tâm",
+        route: "/centers"
+    },
+    {
+        heading : "Tin tức",
+        route: "/news"
     },
     {
         icon : <ChartFill/>,

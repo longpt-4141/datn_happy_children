@@ -1,0 +1,41 @@
+.error-background {
+    background: #ef476f !important;
+
+    .error-progress-bar {
+        background: rgb(249, 191, 191) !important;
+    }
+    .error-font-size {
+        color: #fff !important;
+        font-size: 16px; 
+        padding: 12px;
+
+        .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter {
+            margin-inline-end: 20px;
+            
+            svg {
+                fill: #fff !important;
+            }
+        }
+    }
+}
+
+.success-background {
+    background: #06d6a0 !important;
+
+    .success-progress-bar {
+        background: #00ffd0 !important;
+    }
+    .success-font-size {
+        color: #fff !important;
+        font-size: 16px; 
+        padding: 12px;
+
+        .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter {
+            margin-inline-end: 20px;
+            
+            svg {
+                fill: #fff !important;
+            }
+        }
+    }
+}

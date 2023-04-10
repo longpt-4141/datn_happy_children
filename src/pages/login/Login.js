@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import { LockOutlined,  MailOutlined } from '@ant-design/icons';
+import React from 'react';
+import { LockOutlined,  MailOutlined, } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Col, Row } from 'antd';
+import {  useState } from 'react';
+import { Link , useNavigate} from 'react-router-dom';
 import './Login.scss';
 // import PropTypes from 'prop-types';
 import login_img_1  from './image/login_1.svg';
@@ -9,19 +11,52 @@ import login_img_3  from './image/Login_3.svg';
 import login_img_4  from './image/Login_4.svg';
 import {ReactComponent as MenuShortLogo} from '../../assets/img/short_logo/Menu_short_logo.svg';
 
-class Login extends Component {
+import {authLoginUser} from '../../services/userService';
+import { toastError, toastSuccess } from "../../utils/toast-popup";
 
-    constructor(props) {
-        super(props);
-        this.onFinish = this.onFinish.bind(this);
-    }
+
+
+const Login = ({setToken}) => {
     
-    onFinish = (values) => {
-        console.log('Received values of form: ', values);
+    const [form] = Form.useForm();
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const navigate = useNavigate();
+
+    const onFinish = async (values) => {
+        console.log(values)
+        const userEmail = values.email
+        const userPassword = values.password
+        let dataResponse = await authLoginUser(userEmail, userPassword)
+        switch (dataResponse.EC) {
+            case "LOGIN_SUCCESS":
+                let data = {
+                    isAuthenticated: true,
+                    token: 'fake token'
+                }
+                toastSuccess(dataResponse.EM)
+                sessionStorage.setItem("account", JSON.stringify(data));
+                navigate('/')
+                break;
+            case "ERR_PASSWORD_WRONG": 
+                toastError(dataResponse.EM)
+                break;
+            case "ERR_EMAIL_NOT_EXISTED": 
+                toastError(dataResponse.EM)
+                break;
+            default:
+                toastError('Lỗi đăng nhập, vui lòng thử lại!')
+                break;
+        }
     }
 
-    render() {
-        return (
+    const checkInitValue = () => {
+        if (!email || !password) { 
+            return true;
+        }
+        else return false;
+    }
+    return (
             <div className="login">
                 <div className="loginGlass">
                     <Row>
@@ -67,16 +102,21 @@ class Login extends Component {
                                 Xin chào bạn
                             </h2>
                             <Form
+                            form={form}
                             name="normal_login"
                             className="login-form__container"
                             initialValues={{
                                 remember: true,
                             }}
-                            onFinish={this.onFinish}
+                            onFinish={onFinish}
                             >
                             <Form.Item
-                                name="username"
+                                name="email"
                                 rules={[
+                                {
+                                    type: 'email',
+                                    message: "Sai định dạng email, vui lòng kiểm tra lại!"
+                                },
                                 {
                                     required: true,
                                     message: "Vui lòng nhập email của bạn!",
@@ -88,6 +128,7 @@ class Login extends Component {
                                 className="username_input"
                                 prefix={<MailOutlined className="site-form-item-icon" />}
                                 placeholder="Username"
+                                onChange={(e) => {setEmail(e.target.value)}}
                                 />
                             </Form.Item>
                             <Form.Item
@@ -99,11 +140,12 @@ class Login extends Component {
                                 },
                                 ]}
                             >
-                                <Input
+                                <Input.Password
                                 className="password_input"
                                 prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
                                 placeholder="Password"
+                                onChange={(e) => {setPassword(e.target.value)}}
                                 />
                             </Form.Item>
                             <Form.Item>
@@ -115,24 +157,27 @@ class Login extends Component {
                                 Forgot password
                                 </a>
                             </Form.Item>
-
-                            <Form.Item>
+                            <Form.Item shouldUpdate>
+                                {() => (
                                 <Button
-                                type="primary"
-                                htmlType="submit"
-                                className="login-form-button"
+                                    type="primary"
+                                    htmlType="submit"
+                                    disabled={
+                                    checkInitValue()||
+                                    !!form.getFieldsError().filter(({ errors }) => errors.length).length
+                                    }
                                 >
-                                Log in
+                                    Log in
                                 </Button>
-                                Or <a href="/">register now!</a>
+                                )}
                             </Form.Item>
+                            Or <Link to="/register">register now!</Link>
                             </Form>
                         </Col>
                     </Row>
                 </div>
             </div>
         );
-    }
 }
 
 export default Login;

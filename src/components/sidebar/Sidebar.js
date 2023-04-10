@@ -37,10 +37,11 @@ class Sidebar extends Component {
                     <span className={this.state.collapsed ? 'short_logo' : 'logo'}>
                         {this.state.collapsed ?<MenuShortLogo/> : <Logo /> }
                     </span>
+                    {console.log(item)}
                     <div className="menu">
                         <Menu
                             defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
+                            defaultOpenKeys={['submenu']}
                             mode="inline"
                             inlineCollapsed={this.state.collapsed}
                             items={item}

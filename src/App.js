@@ -1,13 +1,8 @@
-import React, { Component } from 'react';
-// import Welcome from './components/Welcome'
+import React  from 'react';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
-import List from './pages/list/List';
-import News from './pages/news/News';
-import Single from './pages/single/Single'
 // add icon
 import "./fontawesome.js"
-
 import './App.css'
 import {
   BrowserRouter,
@@ -16,68 +11,40 @@ import {
 } from "react-router-dom";
 import Register from './pages/register/Register';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count : 0,
-      token : '',
-    }
-    this.handleClick = this.handleClick.bind(this);
-    this.handleDownClick = this.handleDownClick.bind(this);
-  }
-  handleClick(e) {
-    e.preventDefault();
-    this.setState(prevState => ({count: prevState.count + 1}));
-  }
+import ListCenters from './pages/centers/list-centers/ListCenters';
+import CenterDetail from './pages/centers/center-detail/CenterDetail';
 
-  handleDownClick(e) {
-    e.preventDefault();
-    this.setState(prevState => ({count: prevState.count - 1}));
-  }
+import { ToastContainer } from 'react-toastify';
 
-  handleCheckToken(token) {
-    this.setState({
-      token: token,
-    })
-  }
+//routes
+import WithAppFrame from './utils/WithAppFrame';
+import WithoutAppFrame from './utils/WithoutAppFrame';
 
-  render() {
-    // if(!this.state.token) {
-    //   return (
-    //     <div className="App">
-    //       <Login onCheckToken={this.handleCheckToken}/>
-    //     </div>
-    //   )
-    // }
+const App = () => {
+
     return (
-      <div className="App">
-          <BrowserRouter>
-            <Routes>
-              <Route path="/">
-                <Route index element={<Home />} />
-                <Route path='login' element={<Login/>}></Route>
-                <Route path='register' element={<Register/>}></Route>
-                <Route path="users">
-                  <Route index element={<List />} />
-                  <Route path=":userId" element={<Single />} />
-                  <Route path="new" element={<News />} />
-                </Route>
-              </Route> 
-              <Route path="products">
-                <Route index element={<List />} />
-                <Route path=":productId" element={<Single />} />
-                <Route
-                  path="new"
-                  element={<News  title="Add New Product" />}
-                />
+      <>
+        <div className="App">
+        <BrowserRouter>           
+          <Routes>
+            <Route path="/" element={<WithAppFrame/>} >
+              <Route index path="/" element={<Home />} exact={true} />
+              <Route path="centers">
+                <Route index element={<ListCenters/>} />
+                <Route path=":id" element={<CenterDetail/>} />
               </Route>
-            </Routes>
-          </BrowserRouter>
-      </div>
+            </Route>
+            <Route element={ <WithoutAppFrame/>}>
+              <Route path='login' element={<Login />}></Route>
+              <Route path='register' element={<Register/>}></Route>
+            </Route>
+          </Routes>
+          <ToastContainer />
+        </BrowserRouter>
+        </div>
+      </>
     );
   }
-}
 
 export default App;
 

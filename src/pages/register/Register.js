@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
-import Axios from "axios";
+import { Button, Form, Input } from "antd";
+import { toastError, toastSuccess } from "../../utils/toast-popup";
+import { registerNewUser } from "../../services/userService";
+import "react-toastify/dist/ReactToastify.css";
+import "./Register.scss";
+import withNavigateHook from "./withNavigateHook";
 
 class Register extends Component {
     constructor(props) {
@@ -8,32 +12,28 @@ class Register extends Component {
         this.onFinish = this.onFinish.bind(this);
         this.onFinishFailed = this.onFinishFailed.bind(this);
     }
-    
-    onFinish = (values) => {
+
+    onFinish = async(values) => {
         console.log('Received values of form: ', values);
-        Axios.post('http://localhost:8080/register', values)
-            .then((response) => {
-                console.log(response.data);
-            }).catch((error) => {
-                console.log(error)
-            });
+        let response = await registerNewUser(values.email, values.password);
+        switch (response.EC) {
+            case "REGISTER_SUCCESS":
+                toastSuccess(response.EM)
+                this.props.navigation('/login')
+                break;
+            case "ERR_EMAIL_EXISTED": 
+                toastError(response.EM)
+                break;
+            default:
+                toastSuccess('Lỗi đăng ký, vui lòng thử lại!')
+                break;
+        }
     }
 
     onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
     }
 render() {
-
-    Axios({
-        method: "GET",
-        url: "http://localhost:8080/register",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(res => {
-        console.log(res.data.message);
-      });
-
     return (
     <div>
         <Form
@@ -54,27 +54,18 @@ render() {
         onFinishFailed={this.onFinishFailed}
         autoComplete="off"
         >
-        <Form.Item
-            label="Username"
-            name="username"
-            rules={[
-            {
-                required: true,
-                message: "Please input your username!",
-            },
-            ]}
-        >
-            <Input />
-        </Form.Item>
 
         <Form.Item
-            label="Email"
+            label="Email trung tâm"
             name="email"
             rules={[
+            {
+                type: 'email',
+                message: 'Email chưa hợp lệ!',
+            },
             {   
-                type : 'email',
                 required: true,
-                message: "Please input your email!",
+                message: "Vui lòng nhập email của trung tâm!",
             },
             ]}
         >
@@ -82,12 +73,24 @@ render() {
         </Form.Item>
 
         <Form.Item
-            label="Password"
+            label="Mật khẩu"
             name="password"
             rules={[
             {
+                pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
+                message: () => 
+                <>
+                    <p>
+                        Mật khẩu hợp lệ gồm : 8 đến 15 ký tự chứa ít nhất một chữ thường, một chữ in hoa, một chữ số và một ký tự đặc biệt
+                    </p>
+                    <i>
+                        Ví dụ: Quydsd12.,
+                    </i>
+                </>,
+            },
+            {
                 required: true,
-                message: "Please input your password!",
+                message: "Vui lòng nhập mật khẩu!",
             },
             ]}
         >
@@ -95,37 +98,26 @@ render() {
         </Form.Item>
 
         <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-        {
-            required: true,
-            message: 'Please confirm your password!',
-        },
-        ({ getFieldValue }) => ({
-            validator(_, value) {
-            if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-            }
-            return Promise.reject(new Error('The two passwords that you entered do not match!'));
+            name="confirm"
+            label="Xác nhận mật khẩu"
+            dependencies={['password']}
+            hasFeedback
+            rules={[
+            {
+                required: true,
+                message: 'Vui lòng nhập lại mật khẩu bên trên!',
             },
-        }),
-        ]}
-    >
-        <Input.Password />
-    </Form.Item>
-
-        <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{
-            offset: 8,
-            span: 16,
-            }}
+            ({ getFieldValue }) => ({
+                validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                }
+                return Promise.reject(new Error('Hai mật khẩu không khớp, vui lòng kiểm tra lại!'));
+                },
+            }),
+            ]}
         >
-            <Checkbox>Remember me</Checkbox>
+            <Input.Password />
         </Form.Item>
 
         <Form.Item
@@ -144,4 +136,4 @@ render() {
 }
 }
 
-export default Register;
+export default withNavigateHook(Register)
