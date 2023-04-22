@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom'
 export const item = [
     {
         label: (
-            <Link to="dashboard" > Trang chủ </Link>
+            <Link to="" > Trang chủ </Link>
         ),
         key:1,
         icon: <Dashboard style={{width: '20px'}}/>

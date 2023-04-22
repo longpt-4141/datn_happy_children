@@ -1,0 +1,52 @@
+.center__add--page {
+    label {
+        font-weight: 500;
+    }
+    .center__add--title{
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        color: var(--mainColor);
+        margin-bottom: 15px;
+    }
+    .center__add--form{
+        margin-top: 15px;
+        padding-inline: 100px;  
+
+        .established__date--picker{
+            width: 100%;
+        }
+
+        .contact__information, .bank__information{
+            color: var(--mainColor);
+            margin-bottom: 15px;
+        }
+        .ant-space-item {
+            width: 100% !important;
+        }
+        .delete-icon--col {
+            margin: auto;
+            margin-left: -12px;
+            .delete-icon {
+                font-size: 16px;
+                color: var(--mainColor);
+            }
+            .delete-icon:hover {
+                color: rgb(255, 0, 111);
+            }
+        }
+        .bank_plus {
+            .plus_icon, span {
+                color: var(--mainColor) !important;
+            }
+        }
+        .bank_plus:hover {
+                border-color: var(--mainColor) !important;
+            
+        }
+        .optional_bank_name, .optional_bank_account {
+            label::before{
+                display: none !important;
+            }
+        }
+    }
+}
