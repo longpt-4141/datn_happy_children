@@ -38,32 +38,34 @@ const UserProvider = ({children}) => {
         });
     };
     console.log({user})
-    const fetchUser = async () => {
-        console.log('long')
-        let data = await getUserAccount();
-        console.log({data})
-        if(data && data.EC === 'ACCOUNT_VALID') {
-            console.log('awn')
-            const dataRes = data.DT
-            setUser({
-                email:dataRes.email,
-                role: dataRes.role,
-                accessToken: dataRes.accessToken,
-                auth: true,
-                username:dataRes.username,
-                isLoading: false
-        })
-        }else if(data.EC === 'ERR_NOT_LOGGED-IN') {
-            setUser({
-                ...user,
-                auth: false,
-            })
-        }
-        console.log(user)
-    }
+    
     useEffect(() => {
+        const fetchUser = async () => {
+            console.log('long')
+            let data = await getUserAccount();
+            console.log({data})
+            if(data && data.EC === 'ACCOUNT_VALID') {
+                console.log('awn')
+                const dataRes = data.DT
+                setUser({
+                    ...user,
+                    email:dataRes.email,
+                    role: dataRes.role,
+                    accessToken: dataRes.accessToken,
+                    auth: true,
+                    username:dataRes.username,
+                    isLoading: false
+            })
+            }else if(data.EC === 'ERR_NOT_LOGGED-IN') {
+                setUser({
+                    ...user,
+                    auth: false,
+                })
+            }
+            console.log(user)
+        }
         fetchUser()
-    }, []);
+    }, [user]);
     return (
         <UserContext.Provider
             value={{ user, login, logout }}
