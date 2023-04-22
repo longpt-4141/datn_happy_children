@@ -2,8 +2,37 @@
 
 .profile--container{
 
+    .bank-logo {
+        box-shadow: rgba(93, 66, 50, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    }
+
     .avatar{
         margin-top: 10px;
+    }
+
+    .inner--container{
+        justify-content: space-evenly !important;
+    }
+
+    .bank_information--card{
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+        .bank--search {
+            width: 100%;
+            .ant-select-selector{
+                padding-left: 0;
+
+                .ant-select-selection-item{
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: var(--mainColor);
+                    }
+            }
+        }
+        .bank--account-form{
+            .ant-row {
+                flex-flow: nowrap;
+            }
+        }
     }
 
     .center--information{
@@ -31,6 +60,10 @@
             // color: #fc4d60;
             color : var(--mainColor);
             font-size: 15px !important;
+        }
+        label {
+            float: left;
+            margin-left:10px;
         }
     }
 }

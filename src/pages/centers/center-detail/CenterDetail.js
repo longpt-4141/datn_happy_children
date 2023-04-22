@@ -2,7 +2,6 @@ import React from 'react'
 import { Tabs } from 'antd';
 import CenterProfile from './center-introduce/CenterProfile';
 
-const key = 'AIzaSyDNI_ZWPqvdS6r6gPVO50I4TlYkfkZdXh8'
 
 const onChange = (key) => {
     console.log(key);
@@ -14,10 +13,6 @@ const items = [
         label: `Hồ sơ`,
         children: 
         <CenterProfile
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${key}&callback=initMap`}
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `90vh`, margin: `auto`, border: '2px solid black' }} />}
-            mapElement={<div style={{ height: `100%` }} />}
         />,
     },
     {

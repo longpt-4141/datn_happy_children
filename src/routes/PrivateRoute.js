@@ -1,24 +1,35 @@
 import React from 'react';
-import { useState} from 'react';
+import { useContext, useEffect} from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
-import useBeforeRender from '../utils/useBeforeRender';
+// import useBeforeRender from '../utils/useBeforeRender';
+import { UserContext } from '../context/UserProvider';
+// import SyncLoader from "react-spinners/SyncLoader";
+
+
 const PrivateRoute = ({children, ...rest}) => {
-    const [token, setToken] = useState(false)
-    useBeforeRender(() => {
-        const data = JSON.parse(sessionStorage.getItem("account"));
-        if(data) {
-            console.log("data",data.isAuthenticated )
-            if(data.isAuthenticated === true) {
-                setToken(true)
-            }
-        }
-        else{
-            setToken(false)
-        }
-    }, []);
-    console.log({token})
+    // const [token, setToken] = useState(false)
+    const {user} = useContext(UserContext)
+    // useBeforeRender(() => {
+    //     console.log('auth data', user.auth)
+    //     if(user && user.token) {
+    //         console.log("data",user.token )
+    //         if(user.auth === true) {
+    //             setToken(true)
+    //         }
+    //     }
+    //     else{
+    //         setToken(false)
+    //     }
+    // }, [user]);
+    // console.log({token})
+    useEffect(() => {
+        
+    })
     return (
-        token ? <Outlet/> : <Navigate to="/login" />
+        <>{
+            user.auth === true  ? <Outlet/> : <Navigate to="/login" />
+            }
+        </>
     );
 }
 

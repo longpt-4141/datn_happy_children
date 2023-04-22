@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './sidebar.scss';
-import {connect} from 'react-redux';
+// import {connect} from 'react-redux';
 import Logo from '../../assets/img/happy_children_logo'
 import {  item } from './MenuItemData'
 import { Menu, Layout } from 'antd';
@@ -53,10 +53,10 @@ class Sidebar extends Component {
     }
 }
 
-const mapStateToProps = (state) =>{
-    return {
-        user: state.users
-    }
-}
+// const mapStateToProps = (state) =>{
+//     return {
+//         user: state.users
+//     }
+// }
 
-export default connect(mapStateToProps)(Sidebar);
+export default Sidebar

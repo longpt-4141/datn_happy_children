@@ -1,7 +1,7 @@
 import React from 'react';
 import { LockOutlined,  MailOutlined, } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Col, Row } from 'antd';
-import {  useState } from 'react';
+import {  useState, useContext } from 'react';
 import { Link , useNavigate} from 'react-router-dom';
 import './Login.scss';
 // import PropTypes from 'prop-types';
@@ -14,14 +14,17 @@ import {ReactComponent as MenuShortLogo} from '../../assets/img/short_logo/Menu_
 import {authLoginUser} from '../../services/userService';
 import { toastError, toastSuccess } from "../../utils/toast-popup";
 
+import { UserContext } from '../../context/UserProvider';
 
-
-const Login = ({setToken}) => {
+const Login = () => {
     
     const [form] = Form.useForm();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
+    const {user, login} = useContext(UserContext)
+
+    console.log(user)
 
     const onFinish = async (values) => {
         console.log(values)
@@ -36,6 +39,7 @@ const Login = ({setToken}) => {
                 }
                 toastSuccess(dataResponse.EM)
                 sessionStorage.setItem("account", JSON.stringify(data));
+                login(dataResponse.DT)
                 navigate('/')
                 break;
             case "ERR_PASSWORD_WRONG": 

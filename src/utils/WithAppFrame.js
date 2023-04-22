@@ -3,12 +3,17 @@ import Navbar from '../components/navbar/Navbar';
 import Sidebar from '../components/sidebar/Sidebar';
 import { Layout, Breadcrumb } from 'antd';
 import PrivateRoute from '../routes/PrivateRoute';
+import './WithAppFrame.scss'
+import { useContext } from 'react';
+import { UserContext } from '../context/UserProvider';
+import SyncLoader from "react-spinners/SyncLoader";
 
 const { Footer, Content} = Layout;
 const WithAppFrame = () => {
+    const {user} = useContext(UserContext)
     console.log('with-app-frame')
     return (
-        <>
+       <>
             <Layout
                 style={{
                     width: "100%",
@@ -28,7 +33,9 @@ const WithAppFrame = () => {
                     <Content
                         style={{
                         margin: "0 16px",
+                        overflow: 'auto',
                         }}
+                        className="content"
                     >
                         <Breadcrumb
                         style={{
@@ -46,7 +53,36 @@ const WithAppFrame = () => {
                         }}
                         >
                             {/* inner container */}
-                                <PrivateRoute/>
+                                {
+                                    user.isLoading ? 
+                                        <div className="loading--container" style={{
+                                            position: 'relative',
+                                            height: '360px'
+                                        }}>
+                                            <div style={{
+                                                    position: 'absolute',
+                                                    left: '50%',
+                                                    bottom: '50%',
+                                            }}>
+                                                <SyncLoader 
+                                                    style={{
+                                                        display: "flex",
+                                                        justifyContent: "space-evenly"
+                                                    }}  
+                                                    color="var(--mainColor)" 
+                                                />
+                                                <p
+                                                    style={{
+                                                        marginTop: '15px',
+                                                        fontSize: '16px',
+                                                        color: 'var(--mainColor)',
+                                                    }}
+                                                >Chờ chút nhé ...</p>
+                                            </div>
+                                        </div>
+                                    :
+                                        <PrivateRoute/>
+                                }
                             {/* close inner container */}
                         </div>
                     </Content>
@@ -61,7 +97,7 @@ const WithAppFrame = () => {
                     </Footer>
                 </Layout>
             </Layout>
-        </>
+       </>
     );
 }
 

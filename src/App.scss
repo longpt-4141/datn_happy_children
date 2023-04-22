@@ -1,0 +1,81 @@
+:root {
+    --yellow: linear-gradient(180deg, #F8D49A -146.42%, #FAD79D -46.42%);
+    --orange: #fca61f;
+    --black: #242d49;
+    --gray: #788097;
+    --purple: linear-gradient(180deg, #BB67FF 0%, #C484F3 100%);
+    --pink: #FF919D;
+    --glass: rgb(255, 255, 255);
+    --boxShadow: 0px 19px 60px rgb(0 0 0 / 8%);
+    --smboxShadow: -79px 51px 60px rgba(0, 0, 0, 0.08);
+    --activeItem: #fca71f56;
+    --mainColor: #EB6446;
+    --errorColor: #ef5d52;
+    --blue: #2FC7EB;
+    --strongPink: #EB3B7C;
+}
+
+.App {
+    background-color: #ffe284;
+    // background-image: linear-gradient(90deg, #ffe284 0%, #ffc39b 50%, #ffaeee 100%);
+    background-image: linear-gradient(90deg, rgba(255,204,96,1) 0%, rgba(255,191,128,1) 25%, rgba(255,179,153,1) 50%, rgba(255,170,171,1) 75%, rgba(255,153,204,1) 100%);
+    height: 100vh;
+    /* justify-content: center;
+    align-items: center;
+    display: flex; */
+    /* color: #1f1f1f !important; */
+    /* antd customize */
+    .ant-btn-primary {
+        color: #fff;
+        background-color: var(--mainColor);
+        box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+    }
+
+    .ant-btn-primary:hover {
+            // background-color: #f85f9a !important;
+            background-color: #ff894a !important;
+    }
+    .anticon, .anticon-close-circle {
+        color: var(--mainColor)
+    }
+    .ant-form-item-required {
+        font-weight: 500;
+        // color: #fc4d60;
+        color : var(--mainColor);
+        font-size: 15px !important;
+    }
+    .anticon-calendar {
+        color: #EB3B7C ;
+    }
+
+    .ant-input:hover {
+        border-color: #3BC9EB;
+    }
+    .ant-input:focus {
+        border-color: #20869E;
+        outline: 0;
+        -webkit-box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+        box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+    }
+}
+
+.AppGlass {
+    display:grid;
+    height:97%;
+    width: 97%;
+    border-radius: 1rem;
+    background-color: var(--glass);
+}
+
+.site-layout{
+    background: transparent !important;
+}
+/* Footer */
+.ant-layout-footer{
+    padding: 20px 20px !important;
+}
+
+
+.Toastify__toast-theme--colored.Toastify__toast--error {
+    color: greenyellow ;
+}

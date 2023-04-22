@@ -16,6 +16,7 @@ class Register extends Component {
     onFinish = async(values) => {
         console.log('Received values of form: ', values);
         let response = await registerNewUser(values.email, values.password);
+        console.log({response})
         switch (response.EC) {
             case "REGISTER_SUCCESS":
                 toastSuccess(response.EM)

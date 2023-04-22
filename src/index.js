@@ -2,17 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import rootReducers from './store/reducers/rootReducers';
+// import { createStore } from 'redux'
+// import { Provider } from 'react-redux'
+
+import {UserProvider} from './context/UserProvider.js';
 
 const root = document.getElementById('root');
-const reduxStore = createStore(rootReducers)
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={reduxStore}>
-      <App />
-    </Provider>
+    {/* <Provider store={reduxStore}> */}
+      <UserProvider>
+        <App />
+      </UserProvider>
+    {/* </Provider> */}
   </React.StrictMode>
   ,
   root

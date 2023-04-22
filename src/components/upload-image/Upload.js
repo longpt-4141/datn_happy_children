@@ -1,5 +1,5 @@
 import React from 'react';
-    import { LoadingOutlined, CameraOutlined} from '@ant-design/icons';
+    import {  CameraOutlined} from '@ant-design/icons';
 import { message, Upload , Avatar} from 'antd';
 import { useState , useEffect} from 'react';
 import './Upload.scss';
@@ -51,7 +51,7 @@ const UploadImage = (props) => {
 
   const uploadButton = (
     <div>
-        <Avatar size={120} icon={<CameraOutlined />} />
+        <Avatar className='upload-avatar' size={120} icon={<CameraOutlined />} />
     </div>
   );
   return (
