@@ -6,7 +6,7 @@ import PrivateRoute from '../routes/PrivateRoute';
 import './WithAppFrame.scss'
 import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
-import SyncLoader from "react-spinners/SyncLoader";
+import {SyncLoader} from "react-spinners";
 
 const { Footer, Content} = Layout;
 const WithAppFrame = () => {
@@ -53,7 +53,11 @@ const WithAppFrame = () => {
                         }}
                         >
                             {/* inner container */}
-                                {
+                                <>
+                                    {user.auth === false ? <PrivateRoute/> 
+                                        :
+                                        <>
+                                        {
                                     user.isLoading ? 
                                         <div className="loading--container" style={{
                                             position: 'relative',
@@ -83,6 +87,9 @@ const WithAppFrame = () => {
                                     :
                                         <PrivateRoute/>
                                 }
+                                        </>
+                                    }
+                                </>
                             {/* close inner container */}
                         </div>
                     </Content>

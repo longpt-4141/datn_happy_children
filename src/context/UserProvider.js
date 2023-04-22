@@ -2,13 +2,14 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { getUserAccount } from '../services/userService';
 const UserContext =  React.createContext({})
+
 const UserProvider = ({children}) => {
     const [user, setUser] = useState({
         username:'',
         email:'',
         role: {},
         accessToken:'',
-        auth: false,
+        auth: null,
         isLoading: true
     }
     )
@@ -52,13 +53,16 @@ const UserProvider = ({children}) => {
                 username:dataRes.username,
                 isLoading: false
         })
+        }else if(data.EC === 'ERR_NOT_LOGGED-IN') {
+            setUser({
+                ...user,
+                auth: false,
+            })
         }
         console.log(user)
     }
     useEffect(() => {
-        setTimeout(() => {
-            fetchUser()
-        }, 500);
+        fetchUser()
     }, []);
     return (
         <UserContext.Provider

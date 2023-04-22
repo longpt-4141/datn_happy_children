@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -24,6 +25,7 @@
     "i18next": "^22.4.9",
     "i18next-http-backend": "^2.1.1",
     "ignore-styles": "^5.0.1",
+    "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-apexcharts": "^1.4.0",
@@ -34,6 +36,7 @@
     "react-redux": "^7.2.5",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
     "react-toastify": "^9.1.2",
     "recharts": "^2.1.15",
     "redux": "^4.1.1",
@@ -68,7 +71,9 @@
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "@redux-devtools/core": "^3.13.1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"
