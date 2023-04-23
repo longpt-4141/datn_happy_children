@@ -14,7 +14,9 @@ import {ReactComponent as MenuShortLogo} from '../../assets/img/short_logo/Menu_
 import {authLoginUser} from '../../services/userService';
 import { toastError, toastSuccess } from "../../utils/toast-popup";
 
-import { UserContext } from '../../context/UserProvider';
+// import { UserContext } from '../../context/UserProvider';
+import { useDispatch, useSelector } from 'react-redux';
+import AuthSlice, { checkAuthUser, selectCurrentUser, selectLoginMessage } from '../../services/slicer/AuthSlicer';
 
 const Login = () => {
     
@@ -22,31 +24,41 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
-    const {user, login} = useContext(UserContext)
-
+    // const message = useSelector(selectLoginMessage);
+    const user = useSelector(selectCurrentUser);
+    const dispatch = useDispatch()
     console.log(user)
 
     const onFinish = async (values) => {
         console.log(values)
         const userEmail = values.email
         const userPassword = values.password
-        let dataResponse = await authLoginUser(userEmail, userPassword)
-        switch (dataResponse.EC) {
+        const userData = {
+            email: userEmail,
+            password: userPassword
+        }
+        let dataResponse = await authLoginUser(userData)
+        // const result = await dispatch(checkAuthUser(userData)).unwrap();
+        dispatch(AuthSlice.actions.setCredentials(dataResponse));
+        // console.log({result})
+        const message = dataResponse
+        console.log({message})
+        switch (message.EC) {
             case "LOGIN_SUCCESS":
                 let data = {
                     isAuthenticated: true,
                     token: 'fake token'
                 }
-                toastSuccess(dataResponse.EM)
+                toastSuccess(message.EM)
                 sessionStorage.setItem("account", JSON.stringify(data));
-                login(dataResponse.DT)
+                // login(dataResponse.DT)
                 navigate('/')
                 break;
             case "ERR_PASSWORD_WRONG": 
-                toastError(dataResponse.EM)
+                toastError(message.EM)
                 break;
             case "ERR_EMAIL_NOT_EXISTED": 
-                toastError(dataResponse.EM)
+                toastError(message.EM)
                 break;
             default:
                 toastError('Lỗi đăng nhập, vui lòng thử lại!')

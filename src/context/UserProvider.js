@@ -65,7 +65,7 @@ const UserProvider = ({children}) => {
             console.log(user)
         }
         fetchUser()
-    }, [user]);
+    }, []);
     return (
         <UserContext.Provider
             value={{ user, login, logout }}

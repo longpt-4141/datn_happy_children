@@ -18,22 +18,22 @@ const registerNewUser = (email, password) => {
     });
 }
 
-const authLoginUser = (email, password) => {
+const authLoginUser = (userData) => {
     return  axios.post('http://localhost:8080/login', {
-        email,
-        password
+        userData
     }, {
         withCredentials: true,
     })
     .then((response) => {
+        console.log(response.data);
         return response.data
     }).catch((error) => {
         console.log({error})
     });
 }
 
-const getUserAccount = () => {
-    return axios.get('http://localhost:8080/account', {
+const getUserAccount = (token) => {
+    return axios.get('http://localhost:8080/account', token,{
         withCredentials: true,
     }).then((response) => {
         return response.data
