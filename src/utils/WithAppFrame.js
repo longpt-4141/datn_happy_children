@@ -3,14 +3,18 @@ import Navbar from '../components/navbar/Navbar';
 import Sidebar from '../components/sidebar/Sidebar';
 import { Layout, Breadcrumb } from 'antd';
 import PrivateRoute from '../routes/PrivateRoute';
-import './WithAppFrame.scss'
+import './WithAppFrame.scss';
+import { useDispatch, useSelector } from 'react-redux';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
 import {SyncLoader} from "react-spinners";
+import { selectCurrentStatus, selectCurrentToken, selectCurrentUser } from '../services/slicer/AuthSlicer';
 
 const { Footer, Content} = Layout;
 const WithAppFrame = () => {
-    const {user} = useContext(UserContext)
+    const user = useSelector(selectCurrentUser)
+    const token = useSelector(selectCurrentToken);
+    const isLoading = useSelector(selectCurrentStatus);
     console.log('with-app-frame')
     return (
        <>
@@ -54,11 +58,11 @@ const WithAppFrame = () => {
                         >
                             {/* inner container */}
                                 <>
-                                    {user.auth === false ? <PrivateRoute/> 
+                                    {token === null ? <PrivateRoute/> 
                                         :
                                         <>
                                         {
-                                    user.isLoading ? 
+                                        isLoading ? 
                                         <div className="loading--container" style={{
                                             position: 'relative',
                                             height: '360px'
@@ -86,9 +90,9 @@ const WithAppFrame = () => {
                                         </div>
                                     :
                                         <PrivateRoute/>
-                                }
+                                        }
                                         </>
-                                    }
+                                }
                                 </>
                             {/* close inner container */}
                         </div>

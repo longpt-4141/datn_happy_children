@@ -3,12 +3,15 @@ import { useContext, useEffect} from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 // import useBeforeRender from '../utils/useBeforeRender';
 import { UserContext } from '../context/UserProvider';
+import { useSelector } from 'react-redux';
+import { selectLoginData } from '../services/slicer/AuthSlicer';
 // import SyncLoader from "react-spinners/SyncLoader";
 
 
 const PrivateRoute = ({children, ...rest}) => {
+    const loginData = useSelector(selectLoginData)
     // const [token, setToken] = useState(false)
-    const {user} = useContext(UserContext)
+    // const {user} = useContext(UserContext)
     // useBeforeRender(() => {
     //     console.log('auth data', user.auth)
     //     if(user && user.token) {
@@ -26,8 +29,8 @@ const PrivateRoute = ({children, ...rest}) => {
         
     })
     return (
-        <>{
-            user.auth === true  ? <Outlet/> : <Navigate to="/login" />
+        <>  {
+                (loginData.isLoggedIn === true)  ? <Outlet/> : <Navigate to="/login" />
             }
         </>
     );

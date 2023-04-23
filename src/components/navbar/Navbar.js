@@ -4,15 +4,19 @@ import { useNavigate} from 'react-router-dom';
 import { Layout , Button, Row, Col,  Dropdown, Space} from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { UserContext } from '../../context/UserProvider';
+import { useDispatch } from 'react-redux';
+import RequestSlice from '../../services/slicer/RequestSlicer';
+
 const { Header} = Layout;
 const Navbar = () => {
   const navigate = useNavigate()
   const {logout} = useContext(UserContext)
+  const dispatch = useDispatch();
 
   const handleLogout = async (event) => {
     event.preventDefault();
-    await logout();
-    navigate('/login')
+    dispatch(RequestSlice.actions.testCheck())
+    // navigate('/login')
   }
 
   const items = [
