@@ -70,11 +70,10 @@ const AuthSlice = createSlice({
 
 })
 
-
-export default AuthSlice;
-
 export const selectCurrentUser = (state) => state.auth.user
 export const selectCurrentToken = (state) => state.auth.token
 export const selectCurrentStatus = (state) => state.auth.isLoading
 export const selectLoginMessage = (state) => state.auth.message
 export const selectLoginData = (state) => state.auth
+
+export default AuthSlice;
