@@ -7,7 +7,6 @@ import {useNavigate,Link} from 'react-router-dom';
 import { arrayBufferToBase64 } from '../../../utils/render-image';
 import axios  from 'axios';
 import removeVietnameseTones from '../../../utils/format/stringFomart';
-import PopupConfirm from '../../../components/modals/PopupConfirm';
 import { deleteCenter } from '../../../services/centerService';
 import { toastSuccess, toastError } from '../../../utils/toast-popup';
 

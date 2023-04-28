@@ -1,7 +1,7 @@
 import React from 'react';
 import { LockOutlined,  MailOutlined, } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Col, Row } from 'antd';
-import {  useState, useContext } from 'react';
+import {  useState } from 'react';
 import { Link , useNavigate} from 'react-router-dom';
 import './Login.scss';
 // import PropTypes from 'prop-types';
@@ -16,7 +16,7 @@ import { toastError, toastSuccess } from "../../utils/toast-popup";
 
 // import { UserContext } from '../../context/UserProvider';
 import { useDispatch, useSelector } from 'react-redux';
-import AuthSlice, { checkAuthUser, selectCurrentUser, selectLoginMessage } from '../../services/slicer/AuthSlicer';
+import AuthSlice, {  selectCurrentUser } from '../../services/slicer/AuthSlicer';
 
 const Login = () => {
     

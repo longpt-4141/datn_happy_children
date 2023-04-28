@@ -4,15 +4,12 @@ import Sidebar from '../components/sidebar/Sidebar';
 import { Layout, Breadcrumb } from 'antd';
 import PrivateRoute from '../routes/PrivateRoute';
 import './WithAppFrame.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useContext } from 'react';
-import { UserContext } from '../context/UserProvider';
+import { useSelector } from 'react-redux';
 import {SyncLoader} from "react-spinners";
-import { selectCurrentStatus, selectCurrentToken, selectCurrentUser } from '../services/slicer/AuthSlicer';
+import { selectCurrentStatus, selectCurrentToken } from '../services/slicer/AuthSlicer';
 
 const { Footer, Content} = Layout;
 const WithAppFrame = () => {
-    const user = useSelector(selectCurrentUser)
     const token = useSelector(selectCurrentToken);
     const isLoading = useSelector(selectCurrentStatus);
     console.log('with-app-frame')

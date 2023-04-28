@@ -24,7 +24,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkAccessToken, selectCurrentToken } from './services/slicer/AuthSlicer.js';
 import RequestPage from './pages/requests';
-import AddRequest from './pages/requests/request-add/AddRequest';
+import AddRequest from './pages/center_role/request-add/AddRequest';
 import RequestDetail from './pages/requests/request-detail/RequestDetail';
 
 // context
