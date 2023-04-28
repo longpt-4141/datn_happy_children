@@ -32,14 +32,26 @@ const authLoginUser = (userData) => {
     });
 }
 
-const getUserAccount = (token) => {
-    return axios.get('http://localhost:8080/account', token,{
-        withCredentials: true,
-    }).then((response) => {
-        return response.data
-    }).catch((error) => {
-        console.log({error})
-    });
+const getUserAccount = async (token) => {
+    try {
+        const response = await axios.post('http://localhost:8080/account', {token}, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        console.log({ error });
+    }
 }
 
-export {registerNewUser, authLoginUser,getUserAccount}
+const getUserRole = async (token) => {
+    try {
+        const response = await axios.post('http://localhost:8080/getRole', {token}, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        console.log({ error });
+    }
+}
+
+export {registerNewUser, authLoginUser,getUserAccount, getUserRole}

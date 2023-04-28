@@ -4,8 +4,8 @@ const formatYearMonth = 'YYYY/MM';
 const formatYearMonthSchedule = 'YYYY-MM';
 const format = 'DD/MM/YYYY';
 const formatYearMonthDay = 'YYYY-MM-DD';
-const formatScheduleTime = 'YYYY/MM/DD HH:mm';
-const formatTimestamp = 'YYYY-MM-DD HH:mm';
+const formatRequestDate = 'DD/MM/YYYY HH:mm';
+const formatTimestamp = 'YYYY-MM-DD   HH:mm';
 const formatYear = 'YYYY';
 const formatTime = 'HH:mm';
 const formatNameDay = 'dddd';
@@ -16,6 +16,10 @@ const formatDate = (value) => {
 }
 const formatDateSendDB = (value) => {
     return moment(value).format(formatTimestamp)
+}
+
+const formatRequestCreate = (value) => {
+    return moment(value).format(formatRequestDate)
 }
 
 /*  */
@@ -72,7 +76,7 @@ const truncateFloatNumberAchievementScreen = (n, x) => ((n !== '' && n) || n ===
 
 export {
     formatYearMonth,
-    formatScheduleTime,
+    formatRequestDate,
     formatTimeScheduleWeek,
     formatYear,
     formatYearMonthDay,
@@ -87,7 +91,8 @@ export {
     truncateFloatNumber,
     truncateFloatNumberAchievementScreen,
     formatDate,
-    formatDateSendDB
+    formatDateSendDB,
+    formatRequestCreate
 };
 
 export { format as default };

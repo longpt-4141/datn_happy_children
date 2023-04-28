@@ -23,15 +23,15 @@ const createNewCenter = (name, established_date, province, district, address, ce
         console.log({error})
     });
 }
-const deleteCenter = (centerId) => {
-    return axios.delete(`http://localhost:8080/centers/${centerId}/delete`, {
-        withCredentials: true,
-    })
-    .then((response) => {
-        return response.data
-    }).catch((error) => {
-        console.log({error})
-    });
+const deleteCenter = async (centerId) => {
+    try {
+        const response = await axios.delete(`http://localhost:8080/centers/${centerId}/delete`, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        console.log({ error });
+    }
 }
 
 export {createNewCenter,deleteCenter}

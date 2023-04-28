@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import { authLoginUser, getUserAccount } from '../userService';
+import { authLoginUser, getUserAccount, getUserRole } from '../userService';
 
 export const checkAuthUser = createAsyncThunk('auth/login', async (userData) => {
     const res = await authLoginUser(userData);
@@ -13,6 +13,11 @@ export const checkAccessToken = createAsyncThunk('auth/checkAccessToken', async 
     return res;
 })
 
+export const checkRoleByToken = createAsyncThunk('auth/checkRoleByToken', async (token) => {
+    const res = await getUserRole(token);
+    return res;
+})
+
 const AuthSlice = createSlice({
     name: 'auth',
     initialState: {
@@ -21,22 +26,27 @@ const AuthSlice = createSlice({
             code: ''
         },
         user: null,
-        token: null,
+        token: '',
         isLoading: true,
-        isLoggedIn: null
+        isLoggedIn: null,
+        centerId: '',
+        roleId: ''
     },
     reducers: {
         setCredentials: (state, action) => {
             console.log('payload',action.payload)
             state.user = action.payload.DT;
             state.token = action.payload.DT.accessToken;
+            state.centerId = action.payload.DT.centerId;
             state.isLoggedIn = true;
+            state.roleId = action.payload.DT.role.id;
         },
-        login : (state, action) => {},
-
         logOut : (state, action) => {
             state.user = null;
             state.token = null;
+            state.isLoggedIn = null;
+            state.centerId= '';
+            state.roleId= '';
         },
     },
     extraReducers: builder => {
@@ -47,12 +57,14 @@ const AuthSlice = createSlice({
             // })
             .addCase(checkAuthUser.fulfilled, (state, action) => {
                 if(action.payload.DT) {
-                    console.log('ddd')
+                    console.log('ddd',action.payload.DT )
                     state.message.text = action.payload.EM;
                     state.message.code = action.payload.EC;
                     state.user = action.payload.DT;
                     state.token = action.payload.DT.accessToken;
+                    state.centerId = action.payload.DT.centerId;
                     state.isLoggedIn = true;
+                    state.roleId = action.payload.DT.role.id;
                 }
                 else {
                     console.log('ccc')
@@ -65,15 +77,40 @@ const AuthSlice = createSlice({
             })
             .addCase(checkAccessToken.fulfilled, (state, action) => {
                 state.isLoading = false;
+                if(action.payload.DT) {
+                    console.log('ddd2')
+                    state.user = action.payload.DT;
+                    state.token = action.payload.DT.accessToken;
+                    state.centerId = action.payload.DT.centerId;
+                    state.isLoggedIn = true;
+                    state.roleId = action.payload.DT.role.id;
+                }
+                else {
+                    console.log('ccc2')
+                }
+            })
+            .addCase(checkRoleByToken.pending, (state, action) => {
+                state.isLoading = true;
+            })
+            .addCase(checkRoleByToken.fulfilled, (state, action) => {
+                state.isLoading = false;
+                if(action.payload.DT) {
+                    console.log('role')
+                }
+                else {
+                    console.log('role fail')
+                }
             })
     }
 
 })
 
 export const selectCurrentUser = (state) => state.auth.user
+export const selectCenterId = (state) => state.auth.centerId
 export const selectCurrentToken = (state) => state.auth.token
 export const selectCurrentStatus = (state) => state.auth.isLoading
 export const selectLoginMessage = (state) => state.auth.message
 export const selectLoginData = (state) => state.auth
+export const selectUserRole = (state) => state.auth.roleId
 
 export default AuthSlice;
