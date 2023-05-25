@@ -1,6 +1,6 @@
 import React , {useState , useEffect } from 'react'
 import { Space, Table,  Tooltip,  Button, Modal } from "antd";
-import { EyeOutlined, DeleteOutlined  } from '@ant-design/icons';
+import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import "./RequestList.scss";
 import {useNavigate,Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,15 +10,17 @@ import RequestTypeTag from '../../../components/tags/RequestTypeTag';
 import convertVNDMoney from '../../../utils/format/money-format';
 import { formatRequestCreate } from '../../../utils/format/date-format';
 import SyncLoading from '../../../components/spinners/SyncLoading';
-
-const RequestList = ({searchText, hiddenColumn}) => {
+import { TbReport,TbPencilPlus } from "react-icons/tb";
+import { HiOutlineClipboardCheck } from "react-icons/hi";
+import ActionTablePopover from '../../../components/popover/ActionTablePopover';
+const RequestList = ({ hiddenColumn, currentRole,centerId}) => {
     const [deleteId, setDeleteId] = useState('');
     // const [loading, setLoading] = useState(true);
     let navigate = useNavigate();
     const dispatch = useDispatch();
     let selectRequestList = useSelector(selectRequestData)
     let isLoading = useSelector(selectIsLoading)
-    console.log({selectRequestList})
+    console.log({centerId})
     console.log(convertVNDMoney(100675575))
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -177,7 +179,7 @@ const RequestList = ({searchText, hiddenColumn}) => {
             title: "Trạng thái",
             dataIndex: "status",
             key: "status",
-            width: "10%",
+            width: "13%",
             ellipsis: {
                 showTitle: true,
             },
@@ -190,40 +192,99 @@ const RequestList = ({searchText, hiddenColumn}) => {
                         }
                     };
             },
-            render: (status) => (
-                <StatusTag value={status} />
+            render: (status, record) => (
+                <StatusTag value={status} confirm_money_status={record.money_transfer_confirm} />
             ),
         },
         {
-            title: "Thao tác",
+            title: () =>
+                    <span 
+                        style={{
+                            textAlign: "center"
+                        }}
+                    >
+                        Thao tác
+                        <ActionTablePopover />
+                    </span>,
             key: "action",
             width: "10%",
             render: (action,record) => (
-            <Space size="middle">
-                <Link to={`/requests/${record.id}`}>
-                    <Button
-                        className='center-list__table--button__view'
-                        icon={<EyeOutlined/>}
-                        shape='circle'
-                        size='default'
-                    >    
-                    </Button>
-                </Link>
-                {
-                    record.status === 0 
-                        ? 
-                    <Button
-                        onClick={() => showModal(record.id)}
-                        className='center-list__table--button__delete'
-                        icon={<DeleteOutlined/>}
-                        shape='circle'
-                        size='default'
-                    >    
-                    </Button>
-                        :
-                    <></>
-                }
-            </Space>
+            <div 
+                style={{
+                    textAlign: "center"
+                }}
+            >
+                <Space size="middle">
+                    <Link to={`/requests/${record.id}`}>
+                        <Button
+                            className='center-list__table--button__view'
+                            icon={<EyeOutlined/>}
+                            shape='circle'
+                            size='default'
+                        >    
+                        </Button>
+                    </Link>
+                    {
+                        record.status === 0 && currentRole === 2
+                            ? 
+                        <Button
+                            onClick={() => showModal(record.id)}
+                            className='center-list__table--button__delete'
+                            icon={<DeleteOutlined/>}
+                            shape='circle'
+                            size='default'
+                        >    
+                        </Button>
+                            :
+                        <></>
+                    }
+                    {
+                        record.money_transfer_confirm === 1 && currentRole === 2 && record.check_report_status === 2
+                            ?
+                            <Link to={`/reports/add?requestId=${record.id}`}>
+                                <Button
+                                    className='request-list__table--button__report'
+                                    icon={<TbPencilPlus />}
+                                    shape='circle'
+                                    size='default'
+                                >    
+                                </Button>
+                            </Link>
+                            :
+                        <></>
+                    }
+                    {
+                        record.money_transfer_confirm === 1 && currentRole === 2 && record.check_report_status === 1
+                            ?
+                            <Link to={`/reports/${record.report_id}`}>
+                                <Button
+                                    className='request-list__table--button__report--accepted'
+                                    icon={<HiOutlineClipboardCheck />}
+                                    shape='circle'
+                                    size='default'
+                                >    
+                                </Button>
+                            </Link>
+                            :
+                        <></>
+                    }
+                    {
+                        record.money_transfer_confirm === 1 && currentRole === 2 && record.check_report_status === 0
+                            ?
+                            <Link to={`/reports/${record.report_id}`}>
+                                <Button
+                                    className='request-list__table--button__report--waiting'
+                                    icon={<TbReport />}
+                                    shape='circle'
+                                    size='default'
+                                >    
+                                </Button>
+                            </Link>
+                            :
+                        <></>
+                    }
+                </Space>
+            </div>
             ),
         },
     ].filter(item => !item.hidden);
@@ -231,23 +292,9 @@ const RequestList = ({searchText, hiddenColumn}) => {
 
 
     useEffect(() => {
-        // const handleSearch = (listRequestData) => {
-        //     if(searchText.length > 0) {
-        //         let requestDataAfterSearch = listRequestData.filter(center => {
-        //             const centerName = removeVietnameseTones(center.center_name);
-        //             console.log('request tokoro',{centerName});
-        //             return centerName.toLowerCase().includes(searchText)
-        //         });
-        //         console.log({requestDataAfterSearch})
-        //         setRequestData(requestDataAfterSearch)
-        //     }else {
-        //         setRequestData(listRequestData)
-        //     }
-        // }
-        // console.log(selectRequestList.isLoading)
-                dispatch(getAllRequests())
+            dispatch(getAllRequests({currentRole,centerId}))
             console.log('vaof')   
-    }, [dispatch])
+    }, [centerId, currentRole, dispatch])
 
     return (
         <React.Fragment>

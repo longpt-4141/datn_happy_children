@@ -39,3 +39,24 @@
         }
     }
 }
+
+.warning-background {
+    background: #ffc61a !important;
+
+    .warning-progress-bar {
+        background: rgb(255, 179, 17) !important;
+    }
+    .warning-font-size {
+        color: #fff !important;
+        font-size: 16px; 
+        padding: 12px;
+
+        .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter {
+            margin-inline-end: 20px;
+            
+            svg {
+                fill: #fff !important;
+            }
+        }
+    }
+}

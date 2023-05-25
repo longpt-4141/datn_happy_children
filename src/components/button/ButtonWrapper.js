@@ -7,12 +7,15 @@ const ButtonWrapper = ({link}) => {
     console.log(link)
     return (
             <a href={link} target="_blank" className="button--link" rel="noreferrer">
-            <Button 
+            {/* <Button 
                 type="primary" 
                 icon={<EyeTwoTone twoToneColor='#fff' />}
-            >
-                    Bấm vào đây để xem tài liệu
-            </Button>
+            > */}   
+                    <EyeTwoTone style={{
+                        marginRight: '6px',
+                    }} />
+                    Bấm vào để xem
+            {/* </Button> */}
         </a>
     );
 }

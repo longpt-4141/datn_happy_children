@@ -1,0 +1,25 @@
+.center-page {
+    padding: 15px;
+    .center--list__filter{
+        margin-bottom: 25px;
+
+        .button__add--request {
+            box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+            float: right;
+            height: 36px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            svg{
+                // color: #FFDD0E;
+                font-size: 18px;
+            }
+
+            span {
+                // color: #85bb65 ;
+                // font-size: 14px;
+                // font-weight: 500;
+            }
+        }
+    }
+}

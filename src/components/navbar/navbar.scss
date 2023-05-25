@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
 .ant-layout-header {
     margin-right: 8px;
     margin-top: 8px;
@@ -11,4 +12,103 @@
     border-radius: 8px;
     background-color: var(--glass);
     padding: 0 15px;
+}
+.header--information {
+    .ant-popover {
+        width: 380px;
+    }
+    .header--notification {
+
+        button {
+            margin-inline: 20px;
+            background-color: #ffffff; 
+            border: none;
+            box-shadow: none;
+            svg {
+                font-size: 22px;
+                color : #FFE61B;
+            }
+            sup {
+                min-width: 12px;
+                height: 12px;
+                font-size: 9px;
+                line-height: 12px;
+                border-radius: 10px;
+            }
+        }
+
+    }
+    .header--user {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 50px;
+        gap: 20px;
+        padding-right: 10px;
+        .user--name {
+            line-height: normal;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 50px;
+        }
+    }
+}
+.notification__body {
+    width: 380px;
+    #scrollableDiv {
+        border-radius: 10px;
+    }
+    .ant-list-items {
+        margin-top: 10px;
+    }
+    .notification--item {
+        border-radius: 10px;
+        .notification--item__inner {
+            width: 90%;
+            flex-direction : column;
+            align-items: flex-start;
+            .noti-time {
+                svg {
+                    font-size: 16px;
+                }
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: var(--mainColor);
+                font-weight: 500;
+            }
+        }
+        .read__signal {
+            background: #2FC7EB;
+            width: 12px;
+            border-radius: 50%;
+            height: 12px;
+        }
+    }
+    .notification--item:hover{
+        background-color: #fff9dc
+    }
+
+    .notification--item__read {
+        border-radius: 10px;
+        .notification--item__inner {
+            color: rgb(149, 148, 148);
+            width: 90%;
+            flex-direction : column;
+            align-items: flex-start;
+            .noti-time {
+                svg {
+                    font-size: 16px;
+                }
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 500;
+            }
+        }
+    }
+    .notification--item__read:hover{
+        background-color: #fff9dc
+    }
 }

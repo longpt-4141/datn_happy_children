@@ -1,0 +1,19 @@
+.article--edit__page{
+    .article-edit--body{
+        .article-edit__thumbnail-upload{
+            margin-bottom: 20px;
+            margin-top: 10px;
+            .ant-upload-select, .ant-upload-list-item-container {
+                border-radius: 8px !important;
+                width: 300px !important;
+                height: calc(300px/(16/9)) !important;
+                transition: all 0.2s ease;
+                margin-inline-start: 5px;
+            }
+            .ant-upload-select:hover {
+                box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+            }
+        }
+    }
+}

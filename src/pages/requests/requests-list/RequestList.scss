@@ -35,7 +35,12 @@
         }
 
         td.ant-table-cell {
-            .center-list__table--button__view, .center-list__table--button__delete {
+            .center-list__table--button__view, 
+            .center-list__table--button__delete, 
+            .request-list__table--button__report,
+            .request-list__table--button__report--accepted,
+            .request-list__table--button__report--waiting
+            {
                 border: none;
                 box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
             }
@@ -61,6 +66,45 @@
             .center-list__table--button__delete:hover {
                 background-color: var(--strongPink);
                 .anticon-delete {
+                    color: #fff
+                }
+            }
+            .request-list__table--button__report {
+                transition: 0.6s;
+                svg {
+                    color: #ff9c00;
+                    font-size: 18px
+                }
+            }
+            .request-list__table--button__report:hover {
+                background-color: #FFC347;
+                svg {
+                    color: #fff
+                }
+            }
+            .request-list__table--button__report--waiting {
+                transition: 0.6s;
+                svg {
+                    color: var(--mainColor);
+                    font-size: 18px
+                }
+            }
+            .request-list__table--button__report--waiting:hover {
+                background-color: #EB512F;
+                svg {
+                    color: #fff
+                }
+            }
+            .request-list__table--button__report--accepted {
+                transition: 0.6s;
+                svg {
+                    color: #3F9E46;
+                    font-size: 19px
+                }
+            }
+            .request-list__table--button__report--accepted:hover {
+                background-color: #3F9E46;
+                svg {
                     color: #fff
                 }
             }

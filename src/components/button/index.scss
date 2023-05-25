@@ -1,6 +1,46 @@
+// .button--link {
+//     color: #fff;
+// }
+// .button--link:hover {
+//     color: #fff;
+// }
 .button--link {
-    color: #fff;
-}
-.button--link:hover {
-    color: #fff;
+    color: #3BC9EB;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+    padding: .5em;
+    margin-left: -.5em;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+
+    &:before, &:after {
+        position: absolute;
+        content: '';
+        border-bottom: 3px solid #3BC9EB;
+        border-radius: 1em;
+        bottom: .3em;
+        transition: transform .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    &:before {
+        width: 1em;
+        transform-origin: left;
+    }
+
+    &:after {
+        width: 90%;
+        left: 1em;
+        transform: translateX(110%);
+    }
+
+    &:hover:before {
+        transform: scaleX(0.25);
+    }
+
+    &:hover:after {
+        transform: translateX(0);
+    }
+
 }
