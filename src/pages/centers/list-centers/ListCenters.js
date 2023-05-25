@@ -9,12 +9,16 @@ import axios  from 'axios';
 import removeVietnameseTones from '../../../utils/format/stringFomart';
 import { deleteCenter } from '../../../services/centerService';
 import { toastSuccess, toastError } from '../../../utils/toast-popup';
+import { useSelector } from 'react-redux';
+import { selectCurrentToken } from '../../../services/slicer/AuthSlicer';
 
 
 const CentersList = ({searchText}) => {
     const [centerData, setCenterData] = useState([]);
     const [deleteId, setDeleteId] = useState('');
     // const [loading, setLoading] = useState(true);
+    const token = useSelector(selectCurrentToken);
+    console.log('center page',token)
     let navigate = useNavigate();
 
 
@@ -49,7 +53,7 @@ const CentersList = ({searchText}) => {
         switch (dataResponse.EC) {
             case "DELETE_CENTER_SUCCESS":
                 toastSuccess(dataResponse.EM)
-                const res = await axios.get('http://localhost:8080/centers')  
+                const res = await axios.get('http://localhost:8080/centers',)  
                 const listCentersData = setColumnData(res.data)
                 setCenterData(listCentersData)
                 break;
@@ -221,7 +225,9 @@ const CentersList = ({searchText}) => {
             }
         }
         const getData = async () => {
-            const res = await axios.get('http://localhost:8080/centers')
+            const res = await axios.post('http://localhost:8080/centers', {token: token}, {
+                withCredentials : true
+            })
             console.log(res)
             // setLoading(false);
     
@@ -249,7 +255,7 @@ const CentersList = ({searchText}) => {
             handleSearch(listCentersData)
         }
     getData();     
-    }, [searchText])
+    }, [searchText, token])
 
     return (
         <React.Fragment>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Divider, Button, Modal, Form, Input } from 'antd';
 import './RequestDetail.scss'
-import { getSpecificRequest, selectAgreeNote, selectCenterAvatar, selectCenterData, selectIsLoading, selectRejectNote, selectRequestItem, updateStatusRequest } from '../../../services/slicer/RequestSlicer';
+import { getSpecificRequest, selectAgreeNote, selectCenterAvatar, selectCenterData, selectIsLoading, selectRejectNote, selectRequestItem, updateMoneyConfirmStatus, updateStatusRequest } from '../../../services/slicer/RequestSlicer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
@@ -11,10 +11,14 @@ import { formatRequestCreate } from '../../../utils/format/date-format';
 import convertVNDMoney from '../../../utils/format/money-format';
 import ButtonWrapper from '../../../components/button/ButtonWrapper';
 import card_image from './images/card_image.svg';
+import children_waiting from './images/children_waiting.svg';
 import UserAvatar from '../../../components/upload-image/UserAvatar';
 import { TiHome,TiMail, TiPhoneOutline } from "react-icons/ti";
 import StatusTag from '../../../components/tags/StatusTag';
 import SyncLoading from '../../../components/spinners/SyncLoading';
+import MoneyTransferConfirmTag from '../../../components/tags/MoneyTrasnferConfirmTag';
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import { selectUserRole } from '../../../services/slicer/AuthSlicer';
 // import {SyncLoader} from "react-spinners";
 
 const RequestDetail = () => {
@@ -27,6 +31,10 @@ const RequestDetail = () => {
     const rejectNote = useSelector(selectRejectNote)
     const agreeNote = useSelector(selectAgreeNote)
     const isLoading = useSelector(selectIsLoading)
+
+    const currentRole = useSelector(selectUserRole);
+
+
     const dispatch = useDispatch();
     // console.log(requestItem.center.avatar)
 
@@ -34,6 +42,7 @@ const RequestDetail = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAgreeModalOpen, setIsAgreeModalOpen] = useState(false);
+    const [isMoneyConfirmModalOpen, setMoneyConfirmModalOpen] = useState(false);
     // const [actionId, setActionId] = useState('');
     const showRejectModal = (requestId) => {
     // setDeleteId(centerId)
@@ -86,6 +95,26 @@ const RequestDetail = () => {
     };
     /*  */
 
+    /* money confirm modal */
+
+    const handleOpenConfirmMoneyModal = () => {
+        setMoneyConfirmModalOpen(true);
+    }
+
+    const handleMoneyConfirm = () => {
+        let requestId = requestItem.id
+        let noteData = {
+            status : requestItem.status
+        }
+        dispatch(updateMoneyConfirmStatus({requestId,noteData }))
+        setMoneyConfirmModalOpen(false);
+    }
+
+    const handleCancelMoneyConfirm = () => {
+        setMoneyConfirmModalOpen(false);
+    }
+    /*  */
+
     useEffect(() => {
         dispatch(getSpecificRequest(id))
     }, [dispatch, id]);
@@ -111,16 +140,35 @@ const RequestDetail = () => {
                         </h3>
                     </div>
                     <div className="request-detail__information">
-                        <h4
-                        style={{
-                                color : 'var(--mainColor)',
-                                fontSize : '16px',
-                                fontWeight: '500'
-                            }} 
-                            className="information__title"
-                        >
-                            Thông tin yêu cầu
-                        </h4>
+                        <Row>
+                            <Col span={10}>
+                                <h4
+                                    style={{
+                                            // color : 'var(--mainColor)',
+                                            fontSize : '16px',
+                                            fontWeight: '500'
+                                        }} 
+                                        className="information__title"
+                                >
+                                    Thông tin yêu cầu
+                                </h4>
+                            </Col>
+                            {
+                                requestItem.money_transfer_confirm === 0 && currentRole === 2? 
+                                <Col span={8} offset={6}>
+                                    <Button
+                                        className='confirm_money_button'
+                                        // type='primary'
+                                        icon={<RiMoneyDollarCircleFill />}
+                                        onClick={handleOpenConfirmMoneyModal}
+                                    >
+                                        Xác nhận chuyển tiền
+                                    </Button>
+                                </Col>
+                                :
+                                <></>
+                            }
+                        </Row>
                         <div className="information__inner">
                                 <Row>
                                     <Col span={6} className="inner--title">
@@ -167,7 +215,11 @@ const RequestDetail = () => {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col span={6} className="inner--title">
+                                    <Col span={6} className="inner--title"
+                                        style={{
+                                            padding: "0.5em 0"
+                                        }}
+                                    >
                                         Tài liệu dự toán :
                                     </Col>
                                     <Col span={18}>
@@ -263,22 +315,29 @@ const RequestDetail = () => {
                             </Col>
                             <Col span={12}>
                                 <div className="request-detail__status">
-                                    <h3
-                                        style={{
-                                            color : 'var(--mainColor)',
-                                            fontSize : '16px',
-                                            fontWeight: '500'
-                                        }} 
-                                    >Trạng thái của yêu cầu</h3>
+                                    <Row>
+                                        <Col span={12}>
+                                            <h3
+                                                style={{
+                                                    // color : 'var(--mainColor)',
+                                                    fontSize : '16px',
+                                                    fontWeight: '500'
+                                                }} 
+                                            >
+                                                Trạng thái của yêu cầu
+                                            </h3>
+                                        </Col>
+                                    </Row>
                                     <Divider/>
                                     <Row>
-                                        <Col span={10} className="inner--title">
+                                        <Col span={12} className="inner--title">
                                             Trạng thái :
                                         </Col>
-                                        <Col span={14}>
+                                        <Col span={12}>
                                             <StatusTag value={requestItem.status} />
                                         </Col>
                                     </Row>
+
                                     {
                                         requestItem.status === 2 ?
                                         <>
@@ -287,10 +346,10 @@ const RequestDetail = () => {
                                                     marginTop: '20px',
                                                 }}
                                             >
-                                                <Col span={10} className="inner--title">
+                                                <Col span={12} className="inner--title">
                                                     Lý do từ chối :
                                                 </Col>
-                                                <Col span={14}>
+                                                <Col span={12}>
                                                     <p>{rejectNote}</p>
                                                 </Col>
                                             </Row>
@@ -299,10 +358,10 @@ const RequestDetail = () => {
                                                     marginTop: '20px',
                                                 }}
                                             >
-                                                <Col span={10} className="inner--title">
+                                                <Col span={12} className="inner--title">
                                                     Xác nhận vào ngày :
                                                 </Col>
-                                                <Col span={14}>
+                                                <Col span={12}>
                                                     <p>{formatRequestCreate(requestItem.updatedAt)}</p>
                                                 </Col>
                                             </Row>
@@ -318,10 +377,10 @@ const RequestDetail = () => {
                                                     marginTop: '20px',
                                                 }}
                                             >
-                                                <Col span={10} className="inner--title">
+                                                <Col span={12} className="inner--title">
                                                     Lời nhắn :
                                                 </Col>
-                                                <Col span={14}>
+                                                <Col span={12}>
                                                     <p>{agreeNote}</p>
                                                 </Col>
                                             </Row>
@@ -330,11 +389,23 @@ const RequestDetail = () => {
                                                     marginTop: '20px',
                                                 }}
                                             >
-                                                <Col span={10} className="inner--title">
+                                                <Col span={12} className="inner--title">
                                                     Xác nhận vào ngày :
                                                 </Col>
-                                                <Col span={14}>
+                                                <Col span={12}>
                                                     <p>{formatRequestCreate(requestItem.updatedAt)}</p>
+                                                </Col>
+                                            </Row>
+                                            <Row
+                                                style={{
+                                                    marginTop: '20px',
+                                                }}
+                                            >
+                                                <Col span={12} className="inner--title">
+                                                    Xác nhận chuyển tiền :
+                                                </Col>
+                                                <Col span={12}>
+                                                    <MoneyTransferConfirmTag value={requestItem.money_transfer_confirm} />
                                                 </Col>
                                             </Row>
                                         </>
@@ -342,7 +413,7 @@ const RequestDetail = () => {
                                         <></>
                                     }
                                     {
-                                        requestItem.status === 0 ?
+                                        requestItem.status === 0 && currentRole === 1?
                                         
                                         <div
                                             style={{
@@ -350,11 +421,29 @@ const RequestDetail = () => {
                                                     paddingInline: '20px'
                                                 }}>
                                             <i
-                                            style={{
-                                                color: '#FE807E'
-                                            }}
-                                            >Yêu cầu chưa được xác nhận hoặc từ chối, hãy xem xét và đưa ra kết luận sớm nhé</i>
+                                                style={{
+                                                    color: '#FE807E'
+                                                }}
+                                            >
+                                                Yêu cầu chưa được xác nhận hoặc từ chối, hãy xem xét và đưa ra kết luận sớm nhé
+                                            </i>
                                         </div>
+                                        :
+                                        <></>
+                                    }
+                                    {
+                                        requestItem.status === 0 && currentRole === 2? 
+                                        <Row>
+                                            <img 
+                                                style={{
+                                                    width:" 39%",
+                                                    margin: "24px auto 0",
+                                                    borderRadius: "10px",
+                                                }}
+                                                src={children_waiting}
+                                                alt='chờ'
+                                            />
+                                        </Row>
                                         :
                                         <></>
                                     }
@@ -363,7 +452,7 @@ const RequestDetail = () => {
                         </Row>
                     </div>
                     {
-                        requestItem.status === 0 ?
+                        requestItem.status === 0 && currentRole === 1?
                         <div className="request-detail__action">
                         <Row>
                             <Col span={4} offset={16}>
@@ -481,6 +570,25 @@ const RequestDetail = () => {
                                 />
                             </Form.Item>
                         </Form>
+                    </Modal>
+                    <Modal 
+                        className='modal--money_confirm'
+                        title='Xác nhận đã nhận tiền' 
+                        open={isMoneyConfirmModalOpen} 
+                        onOk={handleMoneyConfirm}
+                        // okButtonProps={{form:'reject-form', key: 'submit', htmlType: 'submit'}}
+                        onCancel={handleCancelMoneyConfirm}
+                        okText='Xác nhận đã nhận tiền'
+                        cancelText='Bỏ qua'
+                    >
+                        <Divider
+                            style={{
+                                margin: "5px 0 15px 0",
+                            }}
+                        />
+                        <p>Bạn có chắc chắn xác nhận duyệt yêu cầu này không ?
+                            Nếu có hãy ghi chứ lời nhắn nhé
+                        </p>
                     </Modal>
                 </div>
             }

@@ -9,7 +9,7 @@
     min-width: 200px;
     width: 200px;
     padding-top: 0.2rem;
-    transition: all 200ms ease;
+    // transition: all 200ms ease;
     background-color: #fff !important;
 }
 
@@ -44,7 +44,7 @@
         height: 50px;
         width: 50px;
     }
-    transition : all 0.35s ease;
+    // transition : all 0.35s ease;
 }
 
 /* menu */
@@ -61,12 +61,14 @@
         li{
             border-radius: 0px 8px 8px 0px !important;
             margin-bottom: 10px !important;
+            color: #646464;
             svg{
                 height: 22px;
                 width: 22px;
-                path {
-                    fill: var(--mainColor)
-                }
+                color: #646464;
+                fill: #FFFACC;
+                stroke: var(--mainColor);
+                // stroke: #ba5038;
             }
 
             :hover{
@@ -75,12 +77,15 @@
 
             span{
                 margin-left: 15px !important;
+                a {
+                    transition: none;
+                }
             }
         }
 
         li.ant-menu-item-active{
-            span {
-                color: var(--mainColor);
+            span, svg {
+                color: var(--mainColor) !important;
             }
         }
 
@@ -131,7 +136,7 @@
         filter: drop-shadow(0px 4px 4px #EB6446);
     }
 
-    span {
+    span , svg{
         color: var(--mainColor) !important
     }
 

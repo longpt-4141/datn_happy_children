@@ -13,6 +13,8 @@
     --errorColor: #ef5d52;
     --blue: #2FC7EB;
     --strongPink: #EB3B7C;
+    --moneyColor : #85bb65;
+    --mainGreenColor : #53C292;
 }
 /* EEA08F */
 .App {
@@ -21,10 +23,12 @@
     // background-image: linear-gradient(90deg, rgba(255,204,96,1) 0%, rgba(255,191,128,1) 25%, rgba(255,179,153,1) 50%, rgba(255,170,171,1) 75%, rgba(255,153,204,1) 100%);
     // background-image: #EEA08F;
     height: 100vh;
+    // color : #0A0240;
+    color: #212E40;
     /* justify-content: center;
     align-items: center;
     display: flex; */
-    /* color: #1f1f1f !important; */
+    // /* color: #1f1f1f !important; */
     /* antd customize */
     .ant-btn-primary {
         color: #fff;
@@ -78,5 +82,5 @@
 
 
 .Toastify__toast-theme--colored.Toastify__toast--error {
-    color: greenyellow ;
+    color: rgb(255, 232, 24) ;
 }

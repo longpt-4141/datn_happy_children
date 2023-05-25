@@ -21,6 +21,36 @@
                 font-weight: 500;
             }
         }
+        .confirm_money_button {
+            box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+            float: right;
+            height: 36px;
+            border-color: #85bb65 ;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border: 1px solid #85bb65 ;
+            svg{
+                color: #FFDD0E;
+                font-size: 18px;
+            }
+
+            span {
+                color: #85bb65 ;
+                font-size: 14px;
+                font-weight: 500;
+            }
+        }
+        .confirm_money_button:hover {
+            background-color: #85bb65 ;
+            -webkit-transition: all 0.35s ease;
+            transition: all 0.35s ease;
+            span {
+                color: #fff;
+                // -webkit-transition: all 0.35s ease;
+                // transition: all 0.35s ease;
+            }
+        }
     }
     .request-detail__information-2 {
         margin-top: 25px;

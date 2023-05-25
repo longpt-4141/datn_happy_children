@@ -12,9 +12,12 @@ const createRequestServices = async (centerData) => {
         console.log('createRequestServices',{ error });
     }
 }
-const getAllRequestServices = async () => {
+const getAllRequestServices = async (roleId,centerId) => {
     try {
-        const response = await axios.get('http://localhost:8080/requests', {
+        const response = await axios.post('http://localhost:8080/requests',{ 
+            roleId : roleId,
+            centerId : centerId
+    }, {
             withCredentials: true,
         });
         console.log(response.data);
@@ -62,10 +65,25 @@ const deleteRequestServices = async (requestId) => {
     }
 }
 
+const updateMoneyConfirmStatusServices = async (requestId,requestStatus) => {
+    try {
+        const response = await axios.put(`http://localhost:8080/requests/${requestId}/update_confirm_money`, {
+            requestStatus
+        }, {
+            withCredentials: true,
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log('updateStatusRequestServices',{ error });
+    }
+}
+
 export {
     createRequestServices, 
     getAllRequestServices, 
     getSpecificRequestServices, 
     updateStatusRequestServices ,
     deleteRequestServices,
+    updateMoneyConfirmStatusServices,
 }

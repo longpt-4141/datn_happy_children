@@ -17,6 +17,14 @@ export const toastSuccess = (message) => {
     })
 }
 
+export const toastWarning = (message) => {
+    return toast.warning(message, {
+        className: "warning-background",
+        bodyClassName: "warning-font-size",
+        progressClassName: "warning-progress-bar",
+    })
+}
+
 export const toastWaiting = () => {
     return toast('🦄 Wow so easy!', {
         position: "top-right",

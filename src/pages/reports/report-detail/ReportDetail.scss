@@ -1,0 +1,42 @@
+.report-detail__page {
+    .request--information, .report--body {
+        padding-inline: 30px;
+    }
+    .report--body {
+        margin-top: 20px;
+        .report__file {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+            padding: 15px 30px;
+            border-radius: 8px;
+            .report__file--body {
+                padding-inline: 15px;
+            }
+        }
+        .report-detail__action {
+            margin-top: 25px;
+            margin-bottom: 40px;
+            .button--reject {
+                border: none !important;
+                background: #bdbdbb;
+                color: #FFFFFF;
+            }
+            .button--reject:hover {
+                background: #9f9f9f;
+                color: #FFFFFF;
+            }
+        }
+        .report-detail__status {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+            padding: 15px 30px;
+            border-radius: 8px;
+            .inner--title{
+                font-weight: 500;
+                padding-inline: 25px;
+            }
+        }
+    }
+}
