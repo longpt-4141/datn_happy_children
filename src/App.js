@@ -38,6 +38,8 @@ import StatisticPage from './pages/statistics';
 import AddNew from './pages/news/news-add/AddNew';
 import EditNews from './pages/news/news-edit/EditNews';
 import NewsDetail from './pages/news/news-detail/NewsDetail';
+import { DonatePage } from './pages/donate';
+import MasterSettingPage from './pages/master-setting';
 
 const App = () => {
   // const SERVER = "http://127.0.0.1:8080";
@@ -98,8 +100,17 @@ const App = () => {
                   <Route path=':id/edit' element={<EditNews />} />
                   <Route path='add' element={<AddNew />} /> 
                 </Route>
+                <Route path="donate">
+                  <Route index element={<DonatePage />} />
+                  {/* <Route path=':id' element={<NewsDetail />} />
+                  <Route path=':id/edit' element={<EditNews />} />
+                  <Route path='add' element={<AddNew />} />  */}
+                </Route>
                 <Route path="statistic">
                   <Route index element={<StatisticPage />} />
+                </Route>
+                <Route path="master-setting">
+                  <Route index element={<MasterSettingPage />} />
                 </Route>
               </Route>
               <Route element={ <WithoutAppFrame/>}>

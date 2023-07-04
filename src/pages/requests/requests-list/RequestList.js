@@ -13,6 +13,7 @@ import SyncLoading from '../../../components/spinners/SyncLoading';
 import { TbReport,TbPencilPlus } from "react-icons/tb";
 import { HiOutlineClipboardCheck } from "react-icons/hi";
 import ActionTablePopover from '../../../components/popover/ActionTablePopover';
+
 const RequestList = ({ hiddenColumn, currentRole,centerId}) => {
     const [deleteId, setDeleteId] = useState('');
     // const [loading, setLoading] = useState(true);
@@ -21,7 +22,7 @@ const RequestList = ({ hiddenColumn, currentRole,centerId}) => {
     let selectRequestList = useSelector(selectRequestData)
     let isLoading = useSelector(selectIsLoading)
     console.log({centerId})
-    console.log(convertVNDMoney(100675575))
+
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = (requestId) => {
@@ -35,7 +36,6 @@ const RequestList = ({ hiddenColumn, currentRole,centerId}) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
 
     const columns = [
         {

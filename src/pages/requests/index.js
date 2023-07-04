@@ -1,6 +1,6 @@
 import React from 'react';
 import RequestList from './requests-list/RequestList';
-import { Button, Row, Input, Col, Select} from 'antd';
+import { Button, Row, Input, Col, Select, Statistic, Card} from 'antd';
 import { useState } from 'react';
 import removeVietnameseTones from '../../utils/format/stringFomart';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,23 @@ import { REQUEST_STATUS, REQUEST_TYPE } from '../../constants/requests';
 import RequestTypeTag from '../../components/tags/RequestTypeTag';
 import StatusTag from '../../components/tags/StatusTag';
 import RequestSlice from '../../services/slicer/RequestSlicer';
+import CountUp from 'react-countup';
+import useSWR from 'swr';
+import { fetchAllMoney } from '../../services/statisticService';
+
+export const useNormalMoney = () => {
+    const { data, error, isLoading } = useSWR(
+        `/transaction/get-all-normal-money`,
+        fetchAllMoney,
+    );
+
+    return {
+        normalMoneyData: data,
+        isNormalMoneyLoading: isLoading,
+        isNormalMoneyError: error,
+    };
+}
+
 const RequestPage = () => {
     const {Option} = Select
     // const [searchText, setSearchText] = useState('');
@@ -23,6 +40,15 @@ const RequestPage = () => {
         requestType : null,
         requestStatus : null
     })
+    
+    const {normalMoneyData, isNormalMoneyLoading} = useNormalMoney()
+
+    const formatter = (value) => <CountUp end={value} separator="," suffix=" vnđ" style={{
+        color : 'var(--mainColor)',
+        fontWeight : 500,
+        fontSize : '26px',
+        letterSpacing : '1.25'
+    }}/>;
 
     const navigate = useNavigate('');
     const token = useSelector(selectCurrentToken);
@@ -88,6 +114,23 @@ const RequestPage = () => {
                 >
                     Danh sách yêu cầu
                 </h3>
+                {
+                    isNormalMoneyLoading ? 
+                    <>
+                        Load
+                    </>
+                    :
+                    <Card bordered={false} style={{
+                        marginBottom : '20px',
+                        background: 'var(--subPinkCOlor)'
+                    }}>
+                        <Statistic 
+                            title={<p>Tổng tiền quỹ chung</p>} 
+                            value={normalMoneyData} 
+                            formatter={formatter} 
+                        />
+                    </Card>
+                }
                 <Row
                     style={
                             currentRole === 2 ? {justifyContent : 'space-evenly'} : {gap : '10px'}

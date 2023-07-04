@@ -1,10 +1,11 @@
 import axios from "axios";
+import { baseUrl } from "../constants/baseUrl";
 axios.defaults.withCredentials = true;
 const createNewArticleService = async (articleData) => {
     // const formattedDate = formatDateSendDB(established_date)
     // console.log({formattedDate})
     try {
-        const response = await axios.post('http://localhost:8080/news/add', {
+        const response = await axios.post(`${baseUrl}/news/add`, {
             articleData
         }, {
             withCredentials: true,
@@ -17,7 +18,7 @@ const createNewArticleService = async (articleData) => {
 
 const getAllTopicAndFundsService = async () => {
     try {
-        const response = await axios.get('http://localhost:8080/news/topic-and-funds', {
+        const response = await axios.get(`${baseUrl}/news/topic-and-funds`, {
             withCredentials: true,
         });
         return response.data;
@@ -29,7 +30,7 @@ const getAllTopicAndFundsService = async () => {
 
 const getAllArticlesService = async (searchText) => {
     try {
-        const response = await axios.get('http://localhost:8080/news', {params : {param : searchText}} ,{
+        const response = await axios.get(`${baseUrl}/news`, {params : {param : searchText}} ,{
             withCredentials: true,
         });
         return response.data;
@@ -41,7 +42,7 @@ const getAllArticlesService = async (searchText) => {
 
 const getSpecificArticleService = async (articleId) => {
     try {
-        const response = await axios.get(`http://localhost:8080/news/${articleId}` ,{
+        const response = await axios.get(`${baseUrl}/news/${articleId}` ,{
             withCredentials: true,
         });
         return response.data;
@@ -53,7 +54,7 @@ const getSpecificArticleService = async (articleId) => {
 
 const editArticleService = async (articleId, editedData) => {
     try {
-        const response = await axios.put(`http://localhost:8080/news/${articleId}/edit` ,{editedData},{
+        const response = await axios.put(`${baseUrl}/news/${articleId}/edit` ,{editedData},{
             withCredentials: true,
         });
         return response.data;
@@ -65,7 +66,7 @@ const editArticleService = async (articleId, editedData) => {
 
 const deleteArticleService = async (articleId,topicIsSuggest) => {
     try {
-        const response = await axios.delete(`http://localhost:8080/news/${articleId}/delete-article`, {topicIsSuggest} ,{
+        const response = await axios.delete(`${baseUrl}/news/${articleId}/delete-article`, {topicIsSuggest} ,{
             withCredentials: true,
         });
         return response.data;
@@ -77,7 +78,7 @@ const deleteArticleService = async (articleId,topicIsSuggest) => {
 
 const confirmArticleStatusService = async (articleId, topicId) => {
     try {
-        const response = await axios.put(`http://localhost:8080/news/${articleId}/confirm-article` ,{topicId},{
+        const response = await axios.put(`${baseUrl}/news/${articleId}/confirm-article` ,{topicId},{
             withCredentials: true,
         });
         return response.data;

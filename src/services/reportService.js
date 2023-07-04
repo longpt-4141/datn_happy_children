@@ -1,8 +1,9 @@
 import axios from "axios";
+import { baseUrl } from "../constants/baseUrl";
 axios.defaults.withCredentials = true;
 const createReportServices = async (reportData, requestId) => {
     try {
-        const response = await axios.post('http://localhost:8080/reports/add', {
+        const response = await axios.post(`${baseUrl}/reports/add`, {
             reportData, 
             requestId
         }, {
@@ -16,7 +17,7 @@ const createReportServices = async (reportData, requestId) => {
 
 const getAllReportsServices = async (roleId,centerId) => {
     try {
-        const response = await axios.post('http://localhost:8080/reports',{
+        const response = await axios.post(`${baseUrl}/reports`,{
             roleId : roleId,
             centerId : centerId
         }, {
@@ -31,7 +32,7 @@ const getAllReportsServices = async (roleId,centerId) => {
 
 const getSpecificReportServices = async (reportId) => {
     try {
-        const response = await axios.get(`http://localhost:8080/reports/${reportId}`, {
+        const response = await axios.get(`${baseUrl}/reports/${reportId}`, {
             withCredentials: true,
         });
         console.log("get specific report", response.data);
@@ -43,7 +44,7 @@ const getSpecificReportServices = async (reportId) => {
 
 const updateReportServices = async (reportId,reportData) => {
     try {
-        const response = await axios.put(`http://localhost:8080/reports/${reportId}/update`, {
+        const response = await axios.put(`${baseUrl}/reports/${reportId}/update`, {
             reportData
         }, {
             withCredentials: true,
@@ -57,7 +58,7 @@ const updateReportServices = async (reportId,reportData) => {
 
 const deleteReportServices = async (reportId) => {
     try {
-        const response = await axios.delete(`http://localhost:8080/reports/${reportId}/delete`, {
+        const response = await axios.delete(`${baseUrl}/reports/${reportId}/delete`, {
             withCredentials: true,
         });
         console.log("delete", response.data);
@@ -69,7 +70,7 @@ const deleteReportServices = async (reportId) => {
 
 const acceptOrRejectReportServices = async (reportId,actionData,currentRole) => {
     try {
-        const response = await axios.put(`http://localhost:8080/reports/${reportId}/accept-or-reject`, {
+        const response = await axios.put(`${baseUrl}/reports/${reportId}/accept-or-reject`, {
             actionData,
             currentRole
         }, {

@@ -1,0 +1,1 @@
+export const baseUrl = process.env.REACT_APP_DEV_URL || process.env.REACT_APP_PRODUCTION_URL
