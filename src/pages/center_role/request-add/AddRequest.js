@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCenterId } from '../../../services/slicer/AuthSlicer';
 import { createNewRequest, } from '../../../services/slicer/RequestSlicer';
+import { useNormalMoney } from '../../requests';
+import convertVNDMoney from '../../../utils/format/money-format';
 
 const AddRequest = () => {
     const [form] = Form.useForm()
@@ -16,6 +18,7 @@ const AddRequest = () => {
     const dispatch = useDispatch()
 
     const formatNumber = (value) => new Intl.NumberFormat().format(value);
+    const {normalMoneyData, isNormalMoneyLoading} = useNormalMoney()
     const onFinish = (values) => {
         let requestData = {
             centerId: +centerId,
@@ -136,10 +139,10 @@ const AddRequest = () => {
                                             },
                                             ({ getFieldValue }) => ({
                                                 validator(_, value) {
-                                                if (!value || (value > 1000 && value < 500000000)) {
+                                                if (!value || (value > 1000 && value < normalMoneyData)) {
                                                     return Promise.resolve();
                                                 }
-                                                return Promise.reject(new Error('Số tiền nhỏ nhất là 1,000đ và lớn nhất cho 1 yêu cầu là 500,000,000đ'));
+                                                return Promise.reject(new Error(`Số tiền nhỏ nhất là 1,000đ và lớn nhất cho 1 yêu cầu là ${convertVNDMoney(normalMoneyData)}`));
                                                 },
                                             }),
                                     ]}

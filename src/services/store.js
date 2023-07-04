@@ -6,6 +6,7 @@ import RequestSlice from "./slicer/RequestSlicer";
 import ReportSlice from "./slicer/ReportSlicer";
 import NotificationSlice from "./slicer/NotificationSlicer";
 import ArticleSlicer from "./slicer/ArticleSlicer";
+import DonateSlicer from "./slicer/DonateSlicer";
 const persistConfig = {
     key: 'root',
     storage,
@@ -25,7 +26,8 @@ export const store = configureStore({
         requests : RequestSlice.reducer,
         reports: ReportSlice.reducer,
         notifications: NotificationSlice.reducer,
-        articles: ArticleSlicer.reducer
+        articles: ArticleSlicer.reducer,
+        donate: DonateSlicer.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         immutableCheck: false,

@@ -1,31 +1,32 @@
 import axios from "axios";
 import { formatDateSendDB } from "../utils/format/date-format";
+import { baseUrl } from "../constants/baseUrl";
 axios.defaults.withCredentials = true;
-const createNewCenter = (name, established_date, province, district, address, center_email, phone_number, website, bank_list) => {
+const createNewCenter = async (name, established_date, province, district, address, center_email, phone_number, website, bank_list) => {
     const formattedDate = formatDateSendDB(established_date)
     console.log({formattedDate})
-    return  axios.post('http://localhost:8080/centers/add', {
-        name,
-        established_date : formattedDate,
-        province, 
-        district, 
-        address, 
-        center_email,
-        phone_number, 
-        website, 
-        bank_list
-    }, {
-        withCredentials: true,
-    })
-    .then((response) => {
-        return response.data
-    }).catch((error) => {
-        console.log({error})
-    });
+    try {
+        const response = await axios.post(`${baseUrl}/centers/add`, {
+            name,
+            established_date: formattedDate,
+            province,
+            district,
+            address,
+            center_email,
+            phone_number,
+            website,
+            bank_list
+        }, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        console.log({ error });
+    }
 }
 const deleteCenter = async (centerId) => {
     try {
-        const response = await axios.delete(`http://localhost:8080/centers/${centerId}/delete`, {
+        const response = await axios.delete(`${baseUrl}/centers/${centerId}/delete`, {
             withCredentials: true,
         });
         return response.data;

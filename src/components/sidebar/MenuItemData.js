@@ -1,13 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {ReactComponent as Dashboard} from './image/Dashboard.svg';
 import {ReactComponent as ChartFill} from './image/Chart_fill.svg';
-// import {ReactComponent as News} from './image/News.svg';
-import {ReactComponent as User} from './image/User.svg';
-import {ReactComponent as Request} from './image/Request.svg';
-import { TbReportSearch } from 'react-icons/tb';
-import {BsClipboard2Check} from 'react-icons/bs';
 import { HiOutlineChartSquareBar,  } from 'react-icons/hi';
-import {  HiOutlineClipboardDocumentList,HiOutlineHome,HiOutlineUsers,HiOutlineNewspaper, HiOutlinePencilSquare} from 'react-icons/hi2';
+import {  HiOutlineClipboardDocumentList,HiOutlineHome,HiOutlineUsers,HiOutlineNewspaper, HiOutlinePencilSquare, HiOutlineHeart, HiOutlineCog6Tooth} from 'react-icons/hi2';
 
 import {Link} from 'react-router-dom'
 
@@ -28,6 +21,14 @@ export const item = [
         key:2,
         icon: <HiOutlinePencilSquare/>,
         route: '/requests'
+    },
+    {
+        label: (
+            <Link to="donate" > Donate </Link>
+        ),
+        key:6,
+        icon: <HiOutlineHeart />,
+        route: '/donate'
     },
     {
         label: (
@@ -74,6 +75,14 @@ export const item = [
         key:5,
         icon: <HiOutlineChartSquareBar />,
         route : "/statistic"
+    },
+    {
+        label: (
+            <Link to="master-setting" > Cài đặt chung </Link>
+        ),
+        key:7,
+        icon: <HiOutlineCog6Tooth />,
+        route : "/master-setting"
     },
 ]
 

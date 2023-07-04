@@ -77,9 +77,9 @@ const Navbar = () => {
 
   const items = [
     {
-      label: <p>
+      label: <div>
         <Button onClick={handleLogout}> Logout</Button>
-      </p>,
+      </div>,
       key: '0',
     },
     {

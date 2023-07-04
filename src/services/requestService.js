@@ -1,8 +1,9 @@
 import axios from "axios";
+import { baseUrl } from "../constants/baseUrl";
 axios.defaults.withCredentials = true;
 const createRequestServices = async (centerData) => {
     try {
-        const response = await axios.post('http://localhost:8080/requests/add', {
+        const response = await axios.post(`${baseUrl}/requests/add`, {
             centerData
         }, {
             withCredentials: true,
@@ -14,7 +15,7 @@ const createRequestServices = async (centerData) => {
 }
 const getAllRequestServices = async (roleId,centerId) => {
     try {
-        const response = await axios.post('http://localhost:8080/requests',{ 
+        const response = await axios.post(`${baseUrl}/requests`,{ 
             roleId : roleId,
             centerId : centerId
     }, {
@@ -29,7 +30,7 @@ const getAllRequestServices = async (roleId,centerId) => {
 
 const getSpecificRequestServices = async (requestId) => {
     try {
-        const response = await axios.get(`http://localhost:8080/requests/${requestId}`, {
+        const response = await axios.get(`${baseUrl}/requests/${requestId}`, {
             withCredentials: true,
         });
         console.log(response.data);
@@ -41,7 +42,7 @@ const getSpecificRequestServices = async (requestId) => {
 
 const updateStatusRequestServices = async (requestId,requestStatus) => {
     try {
-        const response = await axios.put(`http://localhost:8080/requests/${requestId}/update`, {
+        const response = await axios.put(`${baseUrl}/requests/${requestId}/update`, {
             requestStatus
         }, {
             withCredentials: true,
@@ -55,7 +56,7 @@ const updateStatusRequestServices = async (requestId,requestStatus) => {
 
 const deleteRequestServices = async (requestId) => {
     try {
-        const response = await axios.delete(`http://localhost:8080/requests/${requestId}/delete`, {
+        const response = await axios.delete(`${baseUrl}/requests/${requestId}/delete`, {
             withCredentials: true,
         });
         console.log("delete", response.data);
@@ -67,7 +68,7 @@ const deleteRequestServices = async (requestId) => {
 
 const updateMoneyConfirmStatusServices = async (requestId,requestStatus) => {
     try {
-        const response = await axios.put(`http://localhost:8080/requests/${requestId}/update_confirm_money`, {
+        const response = await axios.put(`${baseUrl}/requests/${requestId}/update_confirm_money`, {
             requestStatus
         }, {
             withCredentials: true,

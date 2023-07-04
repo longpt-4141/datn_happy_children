@@ -42,25 +42,25 @@
 
             .report-list__table--button__view {
                 transition: 0.6s;
-                .anticon-eye {
+                .anticon-eye, .anticon-check {
                     color: #2FC7EB
                 }
             }
             .report-list__table--button__view:hover {
                 background-color: #2FC7EB;
-                .anticon-eye {
+                .anticon-eye,.anticon-check {
                     color: #fff
                 }
             }
             .report-list__table--button__delete {
                 transition: 0.6s;
-                .anticon-delete {
+                .anticon-delete, .anticon-close {
                     color: var(--strongPink)
                 }
             }
             .report-list__table--button__delete:hover {
                 background-color: var(--strongPink);
-                .anticon-delete {
+                .anticon-delete, .anticon-close {
                     color: #fff
                 }
             }

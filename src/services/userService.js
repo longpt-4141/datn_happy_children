@@ -1,8 +1,9 @@
 import axios from "axios";
+import { baseUrl } from "../constants/baseUrl";
 
 axios.defaults.withCredentials = true;
 const registerNewUser = (email, password) => {
-    return  axios.post('http://localhost:8080/register', {
+    return  axios.post(`${baseUrl}/register`, {
         email,
         password
     },{
@@ -19,7 +20,7 @@ const registerNewUser = (email, password) => {
 }
 
 const authLoginUser = (userData) => {
-    return  axios.post('http://localhost:8080/login', {
+    return  axios.post(`${baseUrl}/login`, {
         userData
     }, {
         withCredentials: true,
@@ -34,7 +35,7 @@ const authLoginUser = (userData) => {
 
 const getUserAccount = async (token) => {
     try {
-        const response = await axios.post('http://localhost:8080/account', {token}, {
+        const response = await axios.post(`${baseUrl}/account`, {token}, {
             withCredentials: true,
         });
         return response.data;
@@ -45,7 +46,7 @@ const getUserAccount = async (token) => {
 
 const getUserRole = async (token) => {
     try {
-        const response = await axios.post('http://localhost:8080/getRole', {token}, {
+        const response = await axios.post(`${baseUrl}/getRole`, {token}, {
             withCredentials: true,
         });
         return response.data;
