@@ -1,0 +1,26 @@
+.add-fund-page {
+    padding: 10px 20px;
+    .fund--add__body {
+        width: 70%;
+        margin: auto;
+        padding: 15px 30px; 
+        margin-top: 25px;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+        border-radius: 8px;
+        .fund--add__image {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            .ant-upload-select, .ant-upload-list-item-container {
+                border-radius: 8px !important;
+                width: 300px !important;
+                height: calc(300px/(16/9)) !important;
+                transition: all 0.2s ease;
+                margin-inline-start: 5px;
+            }
+            .ant-upload-select:hover {
+                box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+            }
+        }
+    }
+}

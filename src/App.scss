@@ -45,7 +45,7 @@
     .anticon, .anticon-close-circle {
         color: var(--mainColor)
     }
-    .ant-form-item-required {
+    label, .ant-form-item-required {
         font-weight: 500;
         // color: #fc4d60;
         color : var(--mainColor);

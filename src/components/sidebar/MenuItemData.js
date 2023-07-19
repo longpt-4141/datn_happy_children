@@ -86,6 +86,56 @@ export const item = [
     },
 ]
 
+export const centerItem = [
+    {
+        label: (
+            <Link to="" > Trang chủ </Link>
+        ),
+        key:1,
+        // icon: <Dashboard style={{width: '20px'}}/>,
+        icon: <HiOutlineHome/>,
+        route: '/dashboard'
+    },
+    {
+        label: (
+            <Link to="requests" > Yêu cầu </Link>
+        ),
+        key:2,
+        icon: <HiOutlinePencilSquare/>,
+        route: '/requests'
+    },
+    {
+        label: (
+            <Link to="reports" > Báo cáo </Link>
+        ),
+        key:3,
+        icon: <HiOutlineClipboardDocumentList />,
+        route: '/reports'
+    },
+    {
+        label: 'Người dùng',
+        key:'users',
+        icon: <HiOutlineUsers/>,
+        children: [
+            {
+                label: (
+                    <Link to="admins" > Quản trị viên </Link>
+                ),
+                key:'users-admin',
+                route: "/admins"
+            },
+            {
+                label: (
+                    <Link to="centers" > Quản lý trung tâm </Link>
+                ),
+                key:'users-center',
+                route: "/centers"
+            }
+        ]
+    },
+
+]
+
 export const MenuItemData = [
     {
         heading : "Trang chủ",

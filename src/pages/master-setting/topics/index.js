@@ -35,11 +35,12 @@ import {
 } from "@ant-design/icons";
 import { useState } from "react";
 import "./index.scss";
+import { getAllTopics, selectAllTopics, selectTopicLoading } from "../../../services/slicer/TopicSlicer";
 
-function FundsPage() {
+function TopicsPage() {
 	const navigate = useNavigate();
-	const fundsLoading = useSelector(selectFundLoading);
-	const listFunds = useSelector(selectAllFunds);
+	const topicLoading = useSelector(selectTopicLoading);
+	const listTopics = useSelector(selectAllTopics);
 	const dispatch = useDispatch();
 
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -90,9 +91,9 @@ function FundsPage() {
 	};
 
 	/*  */
-	const handleEditFund = (fundId) => {
-		console.log({ fundId });
-		navigate(`funds/${fundId}`);
+	const handleEditTopic = (topicId) => {
+		console.log({ topicId });
+		navigate(`topics/${topicId}`);
 	};
 
 	const columns = [
@@ -103,7 +104,7 @@ function FundsPage() {
 			width: "5%",
 		},
 		{
-			title: "Tên quỹ",
+			title: "Tên chủ đề",
 			dataIndex: "name",
 			key: "name",
 			width: "25%",
@@ -117,69 +118,9 @@ function FundsPage() {
 			),
 		},
 		{
-			title: "Số tiền cần gây quỹ",
-			dataIndex: "sponsor_estimate_amount",
-			key: "sponsor_estimate_amount",
-			width: "15%",
-			ellipsis: {
-				showTitle: true,
-			},
-			render: (amount, record) => (
-				<Tooltip
-					placement="topLeft"
-					title={
-						amount === "Không giới hạn"
-							? amount
-							: convertVNDMoney(amount)
-					}
-				>
-					<p
-						style={{
-							color: "rgb(14 160 97)",
-							fontWeight: "500",
-							fontSize: "16px",
-						}}
-					>
-						{amount === "Không giới hạn"
-							? amount
-							: convertVNDMoney(amount)}
-					</p>
-				</Tooltip>
-			),
-		},
-		{
-			title: "Số tiền đã nhận",
-			dataIndex: "received_amount",
-			key: "received_amount",
-			width: "15%",
-			ellipsis: {
-				showTitle: true,
-			},
-			render: (amount, record) => (
-				<Tooltip
-					placement="topLeft"
-					title={
-						amount === "Không giới hạn"
-							? amount
-							: convertVNDMoney(amount)
-					}
-				>
-					<p
-						style={{
-							color: "#FFC347",
-							fontWeight: "500",
-							fontSize: "16px",
-						}}
-					>
-						{convertVNDMoney(amount)}
-					</p>
-				</Tooltip>
-			),
-		},
-		{
 			title: "Ngày tạo",
-			dataIndex: "start_at",
-			key: "start_at",
+			dataIndex: "createdAt",
+			key: "createdAt",
 			width: "12%",
 			ellipsis: {
 				showTitle: true,
@@ -191,31 +132,18 @@ function FundsPage() {
 			),
 		},
 		{
-			title: "Ngày đóng quỹ",
-			dataIndex: "end_at",
-			key: "end_at",
+			title: "Cập nhật",
+			dataIndex: "updatedAt",
+			key: "updatedAt",
 			width: "12%",
 			ellipsis: {
 				showTitle: true,
 			},
 			render: (date) => (
-				<Tooltip
-					placement="topLeft"
-					title={date !== "Vô thời hạn" ? formatDate(date) : date}
-				>
-					{date !== "Vô thời hạn" ? formatDate(date) : date}
-				</Tooltip>
+          <Tooltip placement="topLeft" title={formatDate(date)}>
+                    {formatDate(date)}
+                  </Tooltip>
 			),
-		},
-		{
-			title: "Trạng thái",
-			dataIndex: "status",
-			key: "status",
-			width: "11%",
-			ellipsis: {
-				showTitle: true,
-			},
-			render: (status, record) => <FundStatus value={status} />,
 		},
 		{
 			title: () => (
@@ -231,7 +159,6 @@ function FundsPage() {
 			width: "15%",
 			render: (action, record) => (
 				<>
-					{record.status === 0 ? (
 						<div
 							style={{
 								textAlign: "center",
@@ -239,62 +166,39 @@ function FundsPage() {
 						>
 							<Space size="middle">
 								<Button
-									onClick={() => handleEditFund(record.id)}
+									onClick={() => handleEditTopic(record.id)}
 									className="report-list__table--button__edit"
 									icon={<EditOutlined />}
 									shape="circle"
 									size="default"
 								></Button>
-								{
-									dayjs().endOf('day') < dayjs(record.start_at)
-									?
 									<Button
 										onClick={() => showDeleteModal(record.id)}
 										className="report-list__table--button__delete"
 										icon={<DeleteOutlined />}
 										shape="circle"
 										size="default"
-										disabled={
-											dayjs().endOf('day') > dayjs(record.start_at)
-										}
 									></Button>
-									:
-									null
-								}
-								{
-									dayjs().endOf('day') > dayjs(record.start_at)
-									?
-									<Button
-										onClick={() => showRejectModal(record.id)}
-										className="report-list__table--button__cancel"
-										icon={<FileExcelOutlined />}
-										shape="circle"
-										size="default"
-									></Button>
-									:
-									null
-								}
 							</Space>
 						</div>
-					) : null}
 				</>
 			),
 		},
 	];
 
-	const handleAddFund = (e) => {
+	const handleAddTopic = (e) => {
 		e.preventDefault();
-		navigate("/master-setting/funds/add");
+		navigate("/master-setting/topics/add");
 	};
 
 	useEffect(() => {
-		dispatch(getAllFunds());
+		dispatch(getAllTopics());
 	}, []);
 
 	return (
-		<div className="funds-page">
+		<div className="topics-page">
 			<div
-				className="funds-page--filter"
+				className="topics-page--filter"
 				style={{
 					marginTop: "10px",
 					marginBottom: "20px",
@@ -323,41 +227,22 @@ function FundsPage() {
 							className="button__add--fund"
 							type="primary"
 							icon={<HiOutlinePlusCircle />}
-							onClick={handleAddFund}
+							onClick={handleAddTopic}
 						>
-							Thêm mới quỹ
+							Thêm mới chủ đề
 						</Button>
 					</Col>
 				</Row>
 			</div>
-			<div className="funds-list--table">
+			<div className="topics-list--table">
 				<React.Fragment>
-					{fundsLoading === false ? (
+					{topicLoading === false ? (
 						<>
 							<Table
 								columns={columns}
-								dataSource={listFunds}
+								dataSource={listTopics}
 								pagination={{
 									showSizeChanger: true,
-								}}
-								expandable={{
-									expandedRowRender: (record) => (
-										<Descriptions
-											title="Thông tin bổ sung"
-											className="sub_description"
-										>
-											<Descriptions.Item label="Mô tả">
-												{record.description}
-											</Descriptions.Item>
-											<Descriptions.Item label="Số tiền bù">
-												{record.fund_name
-													? record.fund_name
-													: "Không có"}
-											</Descriptions.Item>
-										</Descriptions>
-									),
-									rowExpandable: (record) =>
-										record.description || record.end_at,
 								}}
 							></Table>
 						</>
@@ -390,4 +275,4 @@ function FundsPage() {
 	);
 }
 
-export default FundsPage;
+export default TopicsPage;

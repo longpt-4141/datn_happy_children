@@ -1,0 +1,16 @@
+.funds-page {
+    .funds-page--filter {
+        .button__add--fund {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 15px 20px;
+            svg {
+                font-size: 18px;
+            }
+        }
+    }
+    .funds-list--table {
+        
+    }
+}
