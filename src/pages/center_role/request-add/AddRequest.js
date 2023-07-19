@@ -139,10 +139,11 @@ const AddRequest = () => {
                                             },
                                             ({ getFieldValue }) => ({
                                                 validator(_, value) {
-                                                if (!value || (value > 1000 && value < normalMoneyData)) {
+                                                if (!value || (value > 1000)) {
                                                     return Promise.resolve();
                                                 }
-                                                return Promise.reject(new Error(`Số tiền nhỏ nhất là 1,000đ và lớn nhất cho 1 yêu cầu là ${convertVNDMoney(normalMoneyData)}`));
+                                                return Promise.reject(new Error(`Số tiền nhỏ nhất là 1,000đ `)); 
+                                                // và lớn nhất cho 1 yêu cầu là ${convertVNDMoney(normalMoneyData)}
                                                 },
                                             }),
                                     ]}

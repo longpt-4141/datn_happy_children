@@ -1,23 +1,19 @@
 import { Tabs } from "antd";
 import React from "react";
 import FundsPage from "./funds";
+import TopicsPage from "./topics";
 
 function MasterSettingPage() {
 	const items = [
 		{
 			key: "1",
-			label: `Chủ đề`,
+			label: `Quỹ`,
 			children: <FundsPage />,
 		},
 		{
 			key: "2",
-			label: `Quỹ`,
-			children: `Content of Tab Pane 2`,
-		},
-		{
-			key: "3",
-			label: `Tab 3`,
-			children: `Content of Tab Pane 3`,
+			label: `Chủ đề`,
+			children: <TopicsPage />,
 		},
 	];
 	return (

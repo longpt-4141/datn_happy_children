@@ -62,15 +62,20 @@
 import React from 'react';
 import './sidebar.scss';
 import Logo from '../../assets/img/happy_children_logo'
-import {  item } from './MenuItemData'
+import {  item, centerItem } from './MenuItemData'
 import { Menu, Layout } from 'antd';
 import {ReactComponent as MenuShortLogo} from '../../assets/img/short_logo/Menu_short_logo.svg';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {  getLastEstLocationKey } from '../../utils/matchRoute';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserRole } from '../../services/slicer/AuthSlicer.js';
+
 const { Sider } = Layout;
 
 const Sidebar = () => {
+    const dispatch = useDispatch();
+    const currentRole = useSelector(selectUserRole)
     const [collapsed, setCollapsed] = useState(false);
     const [selected, setSelected] = useState(0);
     const location = useLocation()
@@ -102,7 +107,14 @@ const Sidebar = () => {
                         defaultOpenKeys={['users']}
                         mode="inline"
                         inlineCollapsed={collapsed}
-                        items={item}
+                        items={
+                            currentRole === 1 ? 
+                            item :
+                            currentRole === 2 ?
+                            centerItem
+                            :
+                            null
+                        }
                         onSelect={handleSelect}
                     />
                 </div>

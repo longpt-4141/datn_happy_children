@@ -1,85 +1,117 @@
 .ant-table-wrapper {
-    .ant-table-thead {
-        tr{
-            th{
-                font-weight: 500 !important;
-                border-bottom: none !important;
-                background-color: #ffd7a9;
-                color: var(--mainColor) !important;
-                padding: 11px 11px !important
-            }
+	.ant-table-thead {
+		tr {
+			th {
+				font-weight: 500 !important;
+				border-bottom: none !important;
+				background-color: #ffd7a9;
+				color: var(--mainColor) !important;
+				padding: 11px 11px !important;
+			}
 
-            th::before{
-                background-color: transparent !important
-            }
-        }
-    }
+			th::before {
+				background-color: transparent !important;
+			}
+		}
+	}
 }
 .ant-table-tbody {
-    tr{
-        :hover{
-            cursor: pointer;
-        }
+	tr {
+		:hover {
+			cursor: pointer;
+		}
 
-        td{
-            color: #444444 !important;
-            padding: 16px 12px !important
-        }
-        
-        td.ant-table-cell-row-hover{
-            border-radius: 0 0 0 0 !important;
-            background: #fde9e0 !important;
-        }
-        td:nth-child(1) {
-            text-align: center;
-        }
+		td {
+			color: #444444 !important;
+			padding: 16px 12px !important;
+		}
 
-        td.ant-table-cell {
-            .report-list__table--button__view, .report-list__table--button__delete {
-                border: none;
-                box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-            }
+		td.ant-table-cell-row-hover {
+			border-radius: 0 0 0 0 !important;
+			background: #fde9e0 !important;
+		}
+		td:nth-child(1) {
+			text-align: center;
+		}
 
-            .report-list__table--button__view {
-                transition: 0.6s;
-                .anticon-eye, .anticon-check {
-                    color: #2FC7EB
-                }
-            }
-            .report-list__table--button__view:hover {
-                background-color: #2FC7EB;
-                .anticon-eye,.anticon-check {
-                    color: #fff
-                }
-            }
-            .report-list__table--button__delete {
-                transition: 0.6s;
-                .anticon-delete, .anticon-close {
-                    color: var(--strongPink)
-                }
-            }
-            .report-list__table--button__delete:hover {
-                background-color: var(--strongPink);
-                .anticon-delete, .anticon-close {
-                    color: #fff
-                }
-            }
-        }
-    }
+		td.ant-table-cell {
+			.report-list__table--button__view,
+			.report-list__table--button__delete,
+			.report-list__table--button__cancel,
+			.report-list__table--button__edit {
+				border: none;
+				box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+					rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+			}
+
+			.report-list__table--button__view {
+				transition: 0.6s;
+				.anticon-eye,
+				.anticon-check {
+					color: #2fc7eb;
+				}
+			}
+			.report-list__table--button__view:hover {
+				background-color: #2fc7eb;
+				.anticon-eye,
+				.anticon-check {
+					color: #fff;
+				}
+			}
+			.report-list__table--button__delete {
+				transition: 0.6s;
+				.anticon-delete,
+				.anticon-close {
+					color: var(--strongPink);
+				}
+			}
+			.report-list__table--button__delete:hover {
+				background-color: var(--strongPink);
+				.anticon-delete,
+				.anticon-close {
+					color: #fff;
+				}
+			}
+			.report-list__table--button__cancel {
+				transition: 0.6s;
+				.anticon-file-excel {
+					color: var(--mainColor);
+				}
+			}
+			.report-list__table--button__cancel:hover {
+				background-color: var(--mainColor);
+				.anticon-file-excel {
+					color: #fff;
+				}
+			}
+            .report-list__table--button__edit {
+				transition: 0.6s;
+				.anticon-edit {
+					color: #21A668;
+				}
+			}
+			.report-list__table--button__edit:hover {
+				background-color: #21A668;
+				.anticon-edit {
+					color: #fff;
+				}
+			}
+		}
+	}
 }
 
 table {
-    box-shadow: rgb(0 0 0 / 10%) 0px 1px 2px 0px;
-    border-radius: 8px;
+	box-shadow: rgb(0 0 0 / 10%) 0px 1px 2px 0px;
+	border-radius: 8px;
 }
 
 .ant-tooltip {
-    .ant-tooltip-content{
-        .ant-tooltip-arrow{
-            --antd-arrow-background-color: var(--mainColor);
-        }
-        .ant-tooltip-inner{
-            background-color: var(--mainColor);
-        }
-    }
+	.ant-tooltip-content {
+		.ant-tooltip-arrow {
+			--antd-arrow-background-color: var(--mainColor);
+		}
+		.ant-tooltip-inner {
+			background-color: var(--mainColor);
+		}
+	}
 }

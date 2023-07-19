@@ -7,6 +7,8 @@ import ReportSlice from "./slicer/ReportSlicer";
 import NotificationSlice from "./slicer/NotificationSlicer";
 import ArticleSlicer from "./slicer/ArticleSlicer";
 import DonateSlicer from "./slicer/DonateSlicer";
+import FundSlicer from "./slicer/FundSlicer";
+import TopicSlicer from "./slicer/TopicSlicer";
 const persistConfig = {
     key: 'root',
     storage,
@@ -27,12 +29,14 @@ export const store = configureStore({
         reports: ReportSlice.reducer,
         notifications: NotificationSlice.reducer,
         articles: ArticleSlicer.reducer,
-        donate: DonateSlicer.reducer
+        donate: DonateSlicer.reducer,
+        funds : FundSlicer.reducer,
+        topics : TopicSlicer.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         immutableCheck: false,
         serializableCheck: false,
-     })
+    })
     // middleware: [thunk]
 })
 

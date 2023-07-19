@@ -179,7 +179,7 @@ const RequestList = ({ hiddenColumn, currentRole,centerId}) => {
             title: "Trạng thái",
             dataIndex: "status",
             key: "status",
-            width: "13%",
+            width: "15%",
             ellipsis: {
                 showTitle: true,
             },
