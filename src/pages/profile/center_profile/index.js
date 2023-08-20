@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
 	Row,
@@ -17,28 +16,25 @@ import {
 	Avatar,
 	Space,
 } from "antd";
-import UploadImage from "../../../../components/upload-image/Upload";
-import { arrayBufferToBase64 } from "../../../../utils/render-image";
-import "./CenterProfile.scss";
+import "./index.scss";
 import moment from "moment";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import locale from "antd/locale/vi_VN";
-import {
-	getProvinceData,
-	getDistrictData,
-	getProvinceName,
-} from "../../../../utils/province-city-data";
-import { regexPhone } from "../../../../utils/Regex";
-import banklist from "../../../../constants/bank.json";
-import UploadFirebase from "../../../../components/firebase-upload/UploadFirebase";
-import { toastWarning } from "../../../../utils/toast-popup";
+import { regexPhone } from "../../../utils/Regex";
+import banklist from "../../../constants/bank.json"
+import UploadFirebase from "../../../components/firebase-upload/UploadFirebase";
+import { toastError, toastSuccess, toastWarning } from "../../../utils/toast-popup";
+import { useSelector } from "react-redux";
+import { selectCenterId } from "../../../services/slicer/AuthSlicer";
+import { getDistrictData, getProvinceData } from "../../../utils/province-city-data";
 
 const provinceData = getProvinceData();
 const districtData = getDistrictData();
 
-const CenterProfile = () => {
-	let { id } = useParams();
+const CenterProfilePage = () => {
+	// let { id } = useParams();
+  let id = useSelector(selectCenterId)
 	const [centerData, setCenterData] = useState([]);
 	const [centerName, setCenterName] = useState("");
 	const [centerEstablished, setCenterEstablished] = useState("");
@@ -129,6 +125,14 @@ const CenterProfile = () => {
 					data: center,
 				});
 				console.log('kết quả sau cập nhật nè',res.data);
+        switch (res.data.EC) {
+          case 'SUCCESS_UPDATE_CENTER':
+              toastSuccess(res.data.EM)
+              break;
+          default:
+              toastError('có lỗi xảy ra vui lòng tải lại trang và thử lại')
+              break;
+      }
 			} catch (err) {
 				if (err.response.status === 404) {
 					console.log("Resource could not be found!");
@@ -718,4 +722,4 @@ const CenterProfile = () => {
 	);
 };
 
-export default CenterProfile;
+export default CenterProfilePage;

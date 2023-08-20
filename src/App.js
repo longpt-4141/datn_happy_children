@@ -46,6 +46,10 @@ import FundEditPage from "./pages/master-setting/funds/edit-fund/FundEdit";
 import TopicsPage from "./pages/master-setting/topics";
 import AddTopic from "./pages/master-setting/topics/add-topics/AddTopic";
 import TopicEditPage from "./pages/master-setting/topics/edit-topic/TopicEdit";
+import Profile from "./pages/profile/admin_profile";
+import RepresentativeProfile from "./pages/profile/representative_profile";
+import CenterProfile from "./pages/profile/center_profile";
+import CenterProfilePage from "./pages/profile/center_profile";
 
 const App = () => {
 	// const SERVER = "http://127.0.0.1:8080";
@@ -105,6 +109,12 @@ const App = () => {
 								<Route path=":id" element={<ReportDetail />} />
 								<Route path="add" element={<AddReport />} />
 							</Route>
+							<Route path="representative-profile">
+										<Route
+											index
+											element={<RepresentativeProfile />}
+										/>
+									</Route>
 							{currentRole === 1 ? (
 								<>
 									<Route path="news">
@@ -124,16 +134,13 @@ const App = () => {
 									</Route>
 									<Route path="donate">
 										<Route index element={<DonatePage />} />
-										{/* <Route path=':id' element={<NewsDetail />} />
-                    <Route path=':id/edit' element={<EditNews />} />
-                    <Route path='add' element={<AddNew />} />  */}
 									</Route>
-									<Route path="statistic">
+									{/* <Route path="statistic">
 										<Route
 											index
 											element={<StatisticPage />}
 										/>
-									</Route>
+									</Route> */}
 									<Route path="master-setting">
 										<Route
 											index
@@ -167,6 +174,24 @@ const App = () => {
 												element={<TopicEditPage />}
 											/>
 										</Route>
+									</Route>
+									<Route path="profile">
+										<Route index element={<Profile />} />
+									</Route>
+								</>
+							) : currentRole === 2 ? (
+								<>
+									<Route path="representative-profile">
+										<Route
+											index
+											element={<RepresentativeProfile />}
+										/>
+									</Route>
+									<Route path="center-profile">
+										<Route
+											index
+											element={<CenterProfilePage />}
+										/>
 									</Route>
 								</>
 							) : (

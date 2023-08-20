@@ -19,7 +19,7 @@ const UserAvatar = ({avatar, avatarSize}) => {
                     :       
                 <Avatar
                     size={avatarSize}
-                    src={arrayBufferToBase64(avatar.data)}
+                    src={avatar}
                     className='profile__left--avatar'
                     style={{
                         display: "block",

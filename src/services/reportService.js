@@ -52,7 +52,7 @@ const updateReportServices = async (reportId,reportData) => {
         console.log(response.data);
         return response.data;
     } catch (error) {
-        console.log('updateStatusRequestServices',{ error });
+        console.log('updateReportServices',{ error });
     }
 }
 
@@ -68,9 +68,10 @@ const deleteReportServices = async (reportId) => {
     }
 }
 
-const acceptOrRejectReportServices = async (reportId,actionData,currentRole) => {
+const acceptOrRejectReportServices = async (reportId,centerId,actionData,currentRole) => {
     try {
         const response = await axios.put(`${baseUrl}/reports/${reportId}/accept-or-reject`, {
+            centerId,
             actionData,
             currentRole
         }, {

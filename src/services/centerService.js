@@ -35,4 +35,17 @@ const deleteCenter = async (centerId) => {
     }
 }
 
-export {createNewCenter,deleteCenter}
+const checkExistedEmail = async (email) => {
+    try {
+        const response = await axios.post(`${baseUrl}/register/checkExistEmail`, {
+            email : email
+        }, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        console.log({ error });
+    }
+}
+
+export {createNewCenter,deleteCenter, checkExistedEmail}

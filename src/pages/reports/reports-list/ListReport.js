@@ -9,6 +9,7 @@ import { formatRequestCreate } from '../../../utils/format/date-format';
 import SyncLoading from '../../../components/spinners/SyncLoading';
 import ReportStatusTag from '../../../components/tags/ReportStatusTag';
 import { SelectReportLoading, deleteReport, getAllReports, selectFilteredReportData, selectReportData } from '../../../services/slicer/ReportSlicer';
+import moment from 'moment';
 // import { selectCenterId } from '../../../services/slicer/AuthSlicer';
 
 const RequestList = ({ hiddenColumn, currentRole,centerId, filterData}) => {
@@ -184,7 +185,35 @@ const RequestList = ({ hiddenColumn, currentRole,centerId, filterData}) => {
                 {formatRequestCreate(date)}
             </Tooltip>
             ),
+        },        {
+            title: "Ngày cần duyệt",
+            dataIndex: "expireAt",
+            key: "expireAt",
+            width: "15%",
+            ellipsis: {
+                showTitle: true,
+            },
+            onCell: ({id}) => {
+                return {
+                    onClick: event => {
+                        event.preventDefault();
+                        console.log('record', id)
+                        navigate(`/reports/${id}`)
+                        }
+                    };
+            },
+            render: (date) => (
+                date === "vo_thoi_han" ? "Vô thời hạn" : 
+                moment(date) >= moment().subtract(1, "days")? 
+                <Tooltip placement="topLeft" title={formatRequestCreate(date)}>
+                <p style={{color : "red"}} >{formatRequestCreate(date)}</p> 
+            </Tooltip> :
+            <Tooltip placement="topLeft" title={formatRequestCreate(date)}>
+            {formatRequestCreate(date)}
+        </Tooltip>
+            ),
         },
+
         {
             title: "Trạng thái",
             dataIndex: "status",
@@ -276,7 +305,7 @@ const RequestList = ({ hiddenColumn, currentRole,centerId, filterData}) => {
                         // loading={listRequestData.isLoading}
                     >
                     </Table>
-                    <Modal title='Xác nhận xóa trung tâm' open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <Modal title='Xác nhận xóa báo cáo' open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                             <p>Bạn có thực sự muốn xóa báo cáo này không ?</p>
                             {/* <p>Some contents...</p>
                             <p>Some contents...</p> */}

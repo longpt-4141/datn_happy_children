@@ -39,8 +39,8 @@ export const deleteReport = createAsyncThunk('report/deleteReport', async (repor
 })
 
 // update accept report 
-export const acceptOrRejectReport = createAsyncThunk('report/acceptOrRejectReport', async ({reportId, actionData, currentRole}) => {
-    const res = await acceptOrRejectReportServices(reportId, actionData, currentRole);
+export const acceptOrRejectReport = createAsyncThunk('report/acceptOrRejectReport', async ({reportId,centerId, actionData, currentRole}) => {
+    const res = await acceptOrRejectReportServices(reportId, centerId, actionData, currentRole);
     console.log(res);
     return res;
 })
@@ -202,6 +202,7 @@ export const selectReportData = (state) => {
             center_name: row.request.center ? row.request.center.name : null,
             // center_avatar: row.request.center.avatar ? row.request.center.n,
             request_description: row.request.description,
+            expireAt: row.expire_at === null ? 'vo_thoi_han' : row.expire_at,
             total_money: row.request.total_money,
             createdAt: row.createdAt,
             status: row.status,
@@ -222,6 +223,7 @@ export const selectFilteredReportData = (state) => {
             request_description: row.request.description,
             total_money: row.request.total_money,
             createdAt: row.createdAt,
+            expireAt: row.expire_at === null ? 'vo_thoi_han' : row.expire_at,
             status: row.status,
             total_pay_money: row.total_pay_money,
         }

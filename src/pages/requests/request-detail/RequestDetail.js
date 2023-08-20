@@ -28,6 +28,7 @@ const RequestDetail = () => {
     const requestItem  = useSelector(selectRequestItem)
     const centerAvatar = useSelector(selectCenterAvatar)
     const centerData = useSelector(selectCenterData)
+    // const centerId = useSelector(selectCenterId)
     const rejectNote = useSelector(selectRejectNote)
     const agreeNote = useSelector(selectAgreeNote)
     const isLoading = useSelector(selectIsLoading)
@@ -54,11 +55,12 @@ const RequestDetail = () => {
         let requestId = requestItem.id
         if (value.note_reject.length > 0) {
             // let requestStatus = 1;
+            const centerId = centerData.id
             let noteData = {
                 text : value.note_reject,
                 status : 2
             }
-            dispatch(updateStatusRequest({requestId,noteData }))
+            dispatch(updateStatusRequest({requestId,noteData,centerId }))
             // dispatch(getSpecificRequest(id))
         }
         setIsModalOpen(false)
@@ -81,11 +83,12 @@ const RequestDetail = () => {
         setIsAgreeModalOpen(false)
         if (value.note_agree.length > 0) {
             // let requestStatus = 1;
+            const centerId = centerData.id
             let noteData = {
                 text : value.note_agree,
                 status : 1
             }
-            dispatch(updateStatusRequest({requestId,noteData }))
+            dispatch(updateStatusRequest({requestId,noteData ,centerId}))
             // dispatch(getSpecificRequest(id))
         }
     };
@@ -106,7 +109,8 @@ const RequestDetail = () => {
         let noteData = {
             status : requestItem.status
         }
-        dispatch(updateMoneyConfirmStatus({requestId,noteData }))
+        const centerId = centerData.id
+        dispatch(updateMoneyConfirmStatus({requestId,noteData, centerId }))
         setMoneyConfirmModalOpen(false);
     }
 

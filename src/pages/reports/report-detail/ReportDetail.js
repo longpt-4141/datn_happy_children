@@ -85,6 +85,8 @@ const ReportDetail = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
+    const [expireAt, setExpireAt] = useState('')
+
     /* accept report */
     const showAgreeModal = () => {
         setIsModalOpen(true);
@@ -93,9 +95,11 @@ const ReportDetail = () => {
         try {
             await dispatch(acceptOrRejectReport({
                 reportId : id,
+                centerId : requestItem.centerId,
                 actionData : {
                     note_reject: null,
-                    status : 'accepted'
+                    status : 'accepted',
+                    id : id
                 },
                 currentRole
             })).unwrap()
@@ -113,9 +117,11 @@ const ReportDetail = () => {
         try {
             await dispatch(acceptOrRejectReport({
                 reportId : id,
+                centerId : requestItem.centerId,
                 actionData : {
                     ...value,
-                    status : 'rejected'
+                    status : 'rejected',
+                    id : id
                 },
                 currentRole
             })).unwrap()
@@ -339,7 +345,7 @@ const ReportDetail = () => {
         } else if(data.length === 0) {
             toastWarning('Bạn chưa có hóa đơn nào cả, hãy thêm hóa đơn để báo cáo nhé')
         } else {
-            await form.validateFields(['payment_file_url'])
+            await form.validateFields(['payment_file_url', 'expire_at'])
             let newReportData = {
                 requestId : requestId,
                 receiptData : formatedReceiptData.map((item) => ({
@@ -349,7 +355,8 @@ const ReportDetail = () => {
                     pay_money: item.pay_money,
                 })),
                 payment_file_url : paymentFileURL,
-                total_pay_money : totalMoney
+                total_pay_money : totalMoney,
+                expire_at : expireAt
             }
             try {
                 await dispatch(updateReport({
@@ -379,9 +386,10 @@ const ReportDetail = () => {
     useEffect(() => {
         dispatch(getSpecificReport(id))
         form.setFieldsValue({
-            payment_file_url : reportItem.payment_file_url
+            payment_file_url : reportItem.payment_file_url,
+            expire_at : (reportItem.expire_at) ? dayjs(reportItem.expire_at, 'YYYY-MM-DD') : ""
         })
-    }, [dispatch, form, id, reportItem.payment_file_url]);
+    }, [dispatch, form, id, reportItem.expire_at, reportItem.payment_file_url]);
 
     useEffect(() => {
         setData(receiptData)
@@ -562,6 +570,42 @@ const ReportDetail = () => {
                                                             onChange={handleChangeFileURL}
                                                         />
                                                     </Form.Item>
+                                                    <Form.Item
+                                                        name="expire_at"
+                                                        label="Ngày mong muốn xác nhận báo cáo"
+                                                        rules={[
+                                                            ({ getFieldValue }) => ({
+                                                                validator(rule, value) {
+                                                                    // from 'getFieldValue("fieldName")' we can get the current value of that field.
+                                                                    if (
+                                                                        value <
+                                                                        dayjs().startOf('day')
+                                                                    ) {
+                                                                        // value = currentValue of this field. with that we can do validations with other values in form fields
+                                                                        return Promise.reject(
+                                                                            "Ngày hết hạn phải bắt đầu từ hôm này"
+                                                                        ); // The validator should always return a promise on both success and error
+                                                                    } if (
+                                                                        value === undefined || null
+                                                                    ) {
+                                                                        return Promise.resolve();
+
+                                                                    }
+                                                                    else {
+                                                                        return Promise.resolve();
+                                                                    }
+                                                                },
+                                                            }),
+                                                        ]}
+                                                    >
+                                                        <DatePicker
+                                                            placeholder="Hãy chọn ngày hết hạn"
+                                                            onChange={(value, dateString) => {
+                                                                console.log({ dateString });
+                                                                setExpireAt(dateString)
+                                                            }}
+                                                        />
+                                                    </Form.Item>
                                                 </>
                                                 : 
                                                 <>
@@ -576,6 +620,24 @@ const ReportDetail = () => {
                                                         Bấm vào đường link dưới đây để dẫn đến tài liệu
                                                     </h4>
                                                     <ButtonWrapper link={reportItem.payment_file_url} />
+                                                    <Divider />
+                                                    <Row
+                                                        style={{
+                                                            marginTop: '20px',
+                                                        }}
+                                                    >
+                                                        <Col span={12} className="inner--title">
+                                                            Mong muốn được duyệt vào ngày :
+                                                        </Col>
+                                                        <Col span={12}>
+                                                            {
+                                                                reportItem.expire_at === null ? 
+                                                                <p>Vô thời hạn</p>
+                                                                :
+                                                                <p>{formatRequestCreate(reportItem.expire_at)}</p>
+                                                            }
+                                                        </Col>
+                                                    </Row>
                                                 </>
                                             }
                                         </div>

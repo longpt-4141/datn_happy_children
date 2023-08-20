@@ -34,23 +34,25 @@ const WithAppFrame = () => {
                     <Content
                         style={{
                         margin: "0 16px",
+                        padding: "24px 12px",
                         overflow: 'auto',
                         }}
                         className="content"
                     >
-                        <Breadcrumb
+                        {/* <Breadcrumb
                         style={{
                             margin: "16px 0",
                         }}
                         >
                         <Breadcrumb.Item>User</Breadcrumb.Item>
                         <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                        </Breadcrumb>
+                        </Breadcrumb> */}
                         <div
                         style={{
                             padding: '0px 12px 0px 12px',
                             minHeight: 360,
                             background: "transparent",
+                            height: '100%'
                         }}
                         >
                             {/* inner container */}

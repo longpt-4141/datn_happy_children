@@ -17,18 +17,18 @@ export const getSpecificRequest = createAsyncThunk('requests/getSpecificRequest'
     return res;
 })
 
-export const updateStatusRequest = createAsyncThunk('requests/updateStatusRequest', async ({requestId,noteData}) => {
+export const updateStatusRequest = createAsyncThunk('requests/updateStatusRequest', async ({requestId,noteData, centerId}) => {
     console.log({noteData});
-    const res = await updateStatusRequestServices(requestId,noteData);
+    const res = await updateStatusRequestServices(requestId,noteData, centerId);
 
     console.log('update status', res);
     return res;
 })
 
 //update confirm money
-export const updateMoneyConfirmStatus = createAsyncThunk('requests/updateMoneyConfirmStatus', async ({requestId,noteData}) => {
+export const updateMoneyConfirmStatus = createAsyncThunk('requests/updateMoneyConfirmStatus', async ({requestId,noteData, centerId}) => {
     console.log({noteData});
-    const res = await updateMoneyConfirmStatusServices(requestId, noteData);
+    const res = await updateMoneyConfirmStatusServices(requestId, noteData, centerId);
 
     console.log('update status', res);
     return res;

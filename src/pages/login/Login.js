@@ -39,7 +39,6 @@ const Login = () => {
         }
         let dataResponse = await authLoginUser(userData)
         // const result = await dispatch(checkAuthUser(userData)).unwrap();
-        dispatch(AuthSlice.actions.setCredentials(dataResponse));
         // console.log({result})
         const message = dataResponse
         console.log({message})
@@ -51,6 +50,8 @@ const Login = () => {
                 }
                 toastSuccess(message.EM)
                 sessionStorage.setItem("account", JSON.stringify(data));
+                dispatch(AuthSlice.actions.setCredentials(dataResponse));
+
                 // login(dataResponse.DT)
                 navigate('/')
                 break;

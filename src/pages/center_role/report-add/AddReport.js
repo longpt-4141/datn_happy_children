@@ -8,7 +8,7 @@ import { getSpecificRequest, selectRequestItem } from '../../../services/slicer/
 import convertVNDMoney from '../../../utils/format/money-format';
 import { formatDateSendDB } from '../../../utils/format/date-format';
 import moment from 'moment';
-// import dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import locale from 'antd/locale/vi_VN';
 import { createNewReport } from '../../../services/slicer/ReportSlicer';
@@ -16,6 +16,7 @@ import { createNewReport } from '../../../services/slicer/ReportSlicer';
 import { toastError, toastWarning } from '../../../utils/toast-popup';
 import RequestInformation from '../../../components/RequestInformation';
 import { FcFolder } from "react-icons/fc";
+import { selectCenterId } from '../../../services/slicer/AuthSlicer';
 
 const originData = [];
 
@@ -62,6 +63,7 @@ const AddReport = () => {
     const [searchParams] = useSearchParams(); 
     console.log(searchParams.get('requestId'))
     const requestId = searchParams.get('requestId')
+    const centerId = useSelector(selectCenterId)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const requestItem = useSelector(selectRequestItem)
@@ -73,6 +75,7 @@ const AddReport = () => {
     const [editingKey, setEditingKey] = useState('');
     const [editingStatus, setEditing] = useState(false)
 
+    const [expireAt, setExpireAt] = useState('')
     const [paymentFileURL, setPaymentFileURL] = useState('')
     
 
@@ -212,7 +215,7 @@ const AddReport = () => {
         render: (_, record) => {
             const editable = isEditing(record);
             return editable ? (
-            <span>
+            <Space size={20}>
                 <Typography.Link
                     onClick={() => save(record.key)}
                     style={{
@@ -224,9 +227,9 @@ const AddReport = () => {
                 <Popconfirm title="Bạn có chắc chắn muốn hủy?" onConfirm={cancel}>
                     <a>Hủy</a>
                 </Popconfirm>
-            </span>
+            </Space>
             ) : (
-            <>
+            <Space size={20}>
                 <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
                     Sửa
                 </Typography.Link>
@@ -237,7 +240,7 @@ const AddReport = () => {
                         </Popconfirm>
                     ) : null
                 }
-            </>
+            </Space>
             
             );
         },
@@ -283,13 +286,16 @@ const AddReport = () => {
                         ...item,
                         pay_date: formatDateSendDB(item.pay_date.$d),
                     }))
-                        await form.validateFields(['payment_file_url'])
+                        await form.validateFields(['payment_file_url', 'expire_at'])
                         reportData = {
                             receiptData,
+                            centerId,
                             total_pay_money : totalMoney,
-                            payment_file_url : paymentFileURL
+                            payment_file_url : paymentFileURL,
+                            expire_at : expireAt
                         }
                     try {
+                        console.log({reportData})
                         dispatch(createNewReport({reportData, requestId})).unwrap();
                         navigate('/reports')
                     }
@@ -418,7 +424,7 @@ const AddReport = () => {
                                     </h4>
                                     <a
                                         target="_blank"
-                                        href={requestItem.report_folder_url}
+                                        href={'https://drive.google.com/drive/folders/1ImDFsmY1c9GvbMzUk95eVN5o96LZFE17'}
                                         rel="noreferrer"
                                     >
                                         <Button 
@@ -438,6 +444,7 @@ const AddReport = () => {
                                             Bấm vào đây
                                         </Button>
                                     </a>
+                                    <i>Bạn hãy chọn thư mục tương ứng với trung tâm của bạn, gán link pdf về các hóa đơn rồi dán link xuống dưới đây</i>
                                     <h4
                                         style={{
                                             marginTop: '20px',
@@ -468,6 +475,42 @@ const AddReport = () => {
                                             onChange={handleChangeFileURL}
                                         />
                                     </Form.Item>
+									<Form.Item
+										name="expire_at"
+										label="Ngày mong muốn xác nhận báo cáo"
+                                        rules={[
+                                            ({ getFieldValue }) => ({
+                                                validator(rule, value) {
+                                                    // from 'getFieldValue("fieldName")' we can get the current value of that field.
+                                                    if (
+                                                        value <
+                                                        dayjs().startOf('day')
+                                                    ) {
+                                                        // value = currentValue of this field. with that we can do validations with other values in form fields
+                                                        return Promise.reject(
+                                                            "Ngày hết hạn phải bắt đầu từ hôm này"
+                                                        ); // The validator should always return a promise on both success and error
+                                                    } if (
+                                                        value === undefined || null
+                                                    ) {
+                                                        return Promise.resolve();
+
+                                                    }
+                                                    else {
+                                                        return Promise.resolve();
+                                                    }
+                                                },
+                                            }),
+                                        ]}
+									>
+										<DatePicker
+											placeholder="Hãy chọn ngày hết hạn"
+											onChange={(value, dateString) => {
+												console.log({ dateString });
+                                                setExpireAt(dateString)
+											}}
+										/>
+									</Form.Item>
                                 </div>
                         </div>
                         <Form.Item>

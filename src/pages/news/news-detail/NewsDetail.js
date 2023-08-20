@@ -143,7 +143,7 @@ const NewsDetail = () => {
                     margin: "5px 0 15px 0",
                 }}
             />
-            <p>Bạn có chắc chắn xác nhận duyệt yêu cầu này không ?
+            <p>Bạn có chắc chắn xác nhận duyệt bài viết này không ?
                 Nếu có hãy ghi chứ lời nhắn nhé
             </p>
         </Modal>

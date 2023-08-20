@@ -1,0 +1,25 @@
+.representative-profile__page {
+	padding: 15px;
+
+	.ant-upload,
+	.ant-upload-select {
+		margin-inline-start: 0 !important;
+	}
+	.avatar-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+		.update_password {
+			color: #fff;
+			border: none;
+			background-color: #ffc347;
+			box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+		}
+		.update_password:hover {
+			border: none;
+			background-color: #ffcb63;
+		}
+	}
+}

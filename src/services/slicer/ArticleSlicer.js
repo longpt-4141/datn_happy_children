@@ -180,4 +180,8 @@ export const selectSpecificArticle = (state, action) => {
     return state.articles.articleItem
 }
 
+export const selectArticlesLoading = (state, action) => {
+    return state.articles.NewsLoading
+}
+
 export default ArticleSlicer;

@@ -17,6 +17,53 @@ const getAllNotificationsService = async (roleId, offset) => {
     }
 }
 
+const getAllCenterNotificationsService = async (roleId,centerId, offset) => {
+    try {
+        const response = await axios.post(`${baseUrl}/notifications`,{ 
+            roleId : roleId,
+            centerId : centerId,
+            offset : offset*10-10,
+    }, {
+            withCredentials: true,
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log({ error });
+    }
+}
+
+const getAllCenterRemindersService = async (centerId) => {
+    try {
+        const response = await axios.post(`${baseUrl}/reminder/confirmed-request`,{ 
+            centerId : centerId,
+            // offset : offset*10-10,
+
+    }, {
+            withCredentials: true,
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log({ error });
+    }
+}
+
+const getAllAdminRemindersService = async () => {
+    try {
+        const response = await axios.post(`${baseUrl}/reminder/admin`,{ 
+            // offset : offset*10-10,
+            
+    }, {
+            withCredentials: true,
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log({ error });
+    }
+}
+
 const updateReadNotification = async (currentRole,notiId) => {
     try {
         const response = await axios.put(`${baseUrl}/notifications/${notiId}/update`, {
@@ -33,5 +80,8 @@ const updateReadNotification = async (currentRole,notiId) => {
 
 export {
     getAllNotificationsService,
-    updateReadNotification
+    updateReadNotification,
+    getAllCenterNotificationsService,
+    getAllCenterRemindersService,
+    getAllAdminRemindersService
 }

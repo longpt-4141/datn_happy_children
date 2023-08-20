@@ -82,7 +82,7 @@ const ReportPage = () => {
                 </h3>
                 <Row
                     style={
-                            currentRole === 2 ? {justifyContent : 'space-evenly'} : {gap : '10px'}
+                            currentRole === 2 ? {justifyContent : 'space-between'} : {gap : '10px'}
                         }
                 >
                     <Col span={1}

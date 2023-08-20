@@ -1,12 +1,35 @@
-.home {
-    .title{
-        color: white;
+.center-dashboard, .admin-dashboard {
+    height: 100%;
+    .reminder-col {
+        background-color: #FFC1B3;
+        border-radius: 10px;
+        height: 100%;
+        padding: 15px;
     }
-}
-.site-layout{
-    background: transparent !important;
-}
-/* Footer */
-.ant-layout-footer{
-    padding: 20px 20px !important;
+    .information-col {
+        .welcome {
+            padding: 25px;
+            height: 200px;
+            border-radius: 10px;
+            background-color: var(--subPinkCOlor);
+            .welcome-title {
+                color: var(--mainPinkCOlor);
+                font-size: 24px;
+                font-weight: 500;
+            }
+            .welcome-content {
+                font-size: 16px;
+                line-height: 30px;
+            }
+
+            .dashboard_bg {
+                img{
+                    width: 80%;
+                    top: -5vh;
+                    right: 0;
+                    position: absolute;
+                }
+            }
+        }
+    }
 }

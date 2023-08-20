@@ -1,6 +1,73 @@
-// .Toastify__progress-bar--error {
-//     background: var(--errorColor) !important;
-// }
-// .Toastify__toast-theme--light {
-//     background: #ef476f;
-// }
+.register{
+    height:100vh ;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .register_container {
+        overflow: auto;
+        width: 80%;
+        height:95%;
+        background: var(--glass);
+        border-radius: 15px;
+        // padding: 15px 20px;
+
+        .title--center_representative, .title--center_info {
+            font-size: 18px;
+            text-transform: uppercase;
+            margin: 40px 0;
+            font-weight: 600;
+
+            // text-xl uppercase my-10 tracking-wider font-medium text-red-400
+        }
+
+        label {
+            font-size: 14px !important;
+        }
+
+        .ant-row{
+            height: 100%;
+
+            .login_form {
+                background: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 15px;
+                flex-direction: column;
+                .login_form__logo{
+                    height: 60px;
+                    width: 60px;
+                    margin-bottom: 15px;
+                    svg{
+                        width:100%;
+                        height:100%;
+                    }
+                }
+                h2{
+                    text-align: center;
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    font-family: "Montserrat";
+                    // background: linear-gradient(90deg, #ffc248 0%, #ffa061 50%, #fc1dcc 100%);
+                    // -webkit-background-clip: text;
+                    // -webkit-text-fill-color: transparent;
+                    color: var(--mainColor);
+                    margin-bottom: 50px;
+                    p{
+                        font-size:24px;
+                        
+                    }
+                }
+
+                .login-form__container{
+                    width: 60%;
+
+                    .username_input, .password_input{
+                        height:40px;
+                    }
+                }
+            }
+        }
+    }
+}

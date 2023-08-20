@@ -1,8 +1,13 @@
 import {ReactComponent as ChartFill} from './image/Chart_fill.svg';
 import { HiOutlineChartSquareBar,  } from 'react-icons/hi';
-import {  HiOutlineClipboardDocumentList,HiOutlineHome,HiOutlineUsers,HiOutlineNewspaper, HiOutlinePencilSquare, HiOutlineHeart, HiOutlineCog6Tooth} from 'react-icons/hi2';
+import {  HiOutlineClipboardDocumentList,HiOutlineHome,HiOutlineUsers,HiOutlineNewspaper, HiOutlinePencilSquare, HiOutlineHeart, HiOutlineCog6Tooth, HiOutlineBuildingLibrary} from 'react-icons/hi2';
+import { useSelector } from 'react-redux';
 
 import {Link} from 'react-router-dom'
+import { selectCurrentUser } from '../../services/slicer/AuthSlicer';
+import { Popover } from 'antd';
+
+// const currentRole = useSelector(selectCurrentUser)
 
 export const item = [
     {
@@ -45,6 +50,13 @@ export const item = [
         children: [
             {
                 label: (
+                    <Link to="profile" > Thông tin cá nhân </Link>
+                ),
+                key:'users-profile',
+                route: "/profile"
+            },
+            {
+                label: (
                     <Link to="admins" > Quản trị viên </Link>
                 ),
                 key:'users-admin',
@@ -68,14 +80,14 @@ export const item = [
         icon: <HiOutlineNewspaper />,
         route: "/news"
     },
-    {
-        label: (
-            <Link to="statistic" > Thống kê </Link>
-        ),
-        key:5,
-        icon: <HiOutlineChartSquareBar />,
-        route : "/statistic"
-    },
+    // {
+    //     label: (
+    //         <Link to="statistic" > Thống kê </Link>
+    //     ),
+    //     key:5,
+    //     icon: <HiOutlineChartSquareBar />,
+    //     route : "/statistic"
+    // },
     {
         label: (
             <Link to="master-setting" > Cài đặt chung </Link>
@@ -113,26 +125,26 @@ export const centerItem = [
         route: '/reports'
     },
     {
-        label: 'Người dùng',
-        key:'users',
-        icon: <HiOutlineUsers/>,
-        children: [
-            {
-                label: (
-                    <Link to="admins" > Quản trị viên </Link>
-                ),
-                key:'users-admin',
-                route: "/admins"
-            },
-            {
-                label: (
-                    <Link to="centers" > Quản lý trung tâm </Link>
-                ),
-                key:'users-center',
-                route: "/centers"
-            }
-        ]
+        label: (
+            <Link to="representative-profile" > 
+                Hồ sơ đại diện
+            </Link>
+        ),
+        key:'representative-profile',
+        icon: <HiOutlineUsers />,
+        route: '/representative-profile'
     },
+    {
+        label: (
+            <Link to="center-profile" > 
+                Hồ sơ trung tâm
+            </Link>
+        ),
+        key:'center-profile',
+        icon: <HiOutlineBuildingLibrary />,
+        route: '/center-profile'
+    },
+
 
 ]
 

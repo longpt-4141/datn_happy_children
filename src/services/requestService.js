@@ -40,10 +40,10 @@ const getSpecificRequestServices = async (requestId) => {
     }
 }
 
-const updateStatusRequestServices = async (requestId,requestStatus) => {
+const updateStatusRequestServices = async (requestId,requestStatus, centerId) => {
     try {
         const response = await axios.put(`${baseUrl}/requests/${requestId}/update`, {
-            requestStatus
+            requestStatus , centerId
         }, {
             withCredentials: true,
         });
@@ -66,10 +66,10 @@ const deleteRequestServices = async (requestId) => {
     }
 }
 
-const updateMoneyConfirmStatusServices = async (requestId,requestStatus) => {
+const updateMoneyConfirmStatusServices = async (requestId,requestStatus, centerId) => {
     try {
         const response = await axios.put(`${baseUrl}/requests/${requestId}/update_confirm_money`, {
-            requestStatus
+            requestStatus, centerId
         }, {
             withCredentials: true,
         });

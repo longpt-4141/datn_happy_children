@@ -1,9 +1,21 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import removeVietnameseTones from '../../utils/format/stringFomart';
-import { getAllNotificationsService } from '../notificationService';
+import { getAllAdminRemindersService, getAllCenterRemindersService, getAllNotificationsService } from '../notificationService';
 
 export const getAllNotifications = createAsyncThunk('requests/getAllNotifications', async ({currentRole,offset}) => {
     const res = await getAllNotificationsService(currentRole, offset);
+    console.log(res);
+    return res;
+})
+
+export const getAllCenterReminder = createAsyncThunk('requests/getAllCenterReminder', async ({centerId}) => {
+    const res = await getAllCenterRemindersService(centerId);
+    console.log(res);
+    return res;
+})
+
+export const getAllAdminReminder = createAsyncThunk('requests/getAllAdminReminder', async () => {
+    const res = await getAllAdminRemindersService();
     console.log(res);
     return res;
 })
@@ -13,61 +25,19 @@ const NotificationSlice = createSlice({
     initialState: {
         adminNotifications : [],
         centerNotifications : [],
+        centerReminders : [],
+        adminReminders : [],
         count : 0,
+        remindLoading : true,
     },
     reducers: {
          /* ===== FILTER ===== */
-        filterByRequestType : (state, action) => {
-            console.log(action.payload)
-            const filtered = state.requests.filter((request) => {
-                return request.type_request === action.payload
-            })
-            return {
-                ...state,
-                filteredRequests : action.payload !== undefined ? filtered : state.requests
-            }
-        },
-        filterByStatus : (state, action) => {
-            console.log(action.payload)
-
-            const searchFiltered = state.requests.filter(request => {
-                const centerName = removeVietnameseTones(request.center.name).toLowerCase();
-                if(action.payload.searchText.length === 0 || action.payload.searchText === undefined ) {
-                    return true
-                } else
-                {
-                    return centerName.includes(action.payload.searchText)
-                }
-            })
-
-            const typeFiltered = searchFiltered.filter((request) => {
-                if (action.payload.requestType === null || action.payload.requestType === undefined) {
-                    return true
-                }
-                else return request.type_request === action.payload.requestType
-            })
-            console.log({typeFiltered})
-
-            const statusFiltered = typeFiltered.filter((request) => {
-                if (action.payload.requestStatus === null || action.payload.requestStatus === undefined) {
-                    return true
-                }
-                else if(action.payload.requestStatus === 4) {
-                    return request.money_transfer_confirm === 1
-                }
-                else return request.status === action.payload.requestStatus
-            })
-            return {
-                ...state,
-                filteredRequests :statusFiltered
-            }
-        }
     },
     extraReducers: builder => {
         builder
-            // .addCase(getAllNotifications.pending, (state, action) => {
-            //     state.isLoading = true;
-            // }).0
+            .addCase(getAllNotifications.pending, (state, action) => {
+                state.remindLoading = true;
+            })
             .addCase(getAllNotifications.fulfilled, (state, action) => {
                 console.log(action.payload);
                 let rawNotifications = action.payload.rows;
@@ -83,8 +53,27 @@ const NotificationSlice = createSlice({
                 state.count = action.payload.count
                  //lay data tu server
             })
+            .addCase(getAllCenterReminder.pending, (state, action) => {
+                state.remindLoading = true;
+            })
+            .addCase(getAllCenterReminder.fulfilled, (state, action) => {
+                console.log(action.payload);
+                state.centerReminders = action.payload.rows
+                state.remindLoading = false;
+
+                 //lay data tu server
+            })
+            .addCase(getAllAdminReminder.pending, (state, action) => {
+                state.remindLoading = true;
+            })
+            .addCase(getAllAdminReminder.fulfilled, (state, action) => {
+                console.log(action.payload);
+                state.adminReminders = action.payload.rows
+                state.remindLoading = false;
+                 //lay data tu server
+            })
             
-    }
+    } 
     
 
 });
@@ -152,5 +141,12 @@ export const selectAdminNotifications = (state) => {
     return state.notifications.adminNotifications
 }
 
+export const selectCenterReminders = (state) => {
+    return state.notifications.centerReminders
+}
+
+export const selectAdminReminders = (state) => {
+    return state.notifications.adminReminders
+}
 
 export default NotificationSlice;
